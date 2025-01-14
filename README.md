@@ -1,37 +1,3 @@
-### Usage command
-
-We can change `.env` to using sqlite database for quickly install
-
-```textmate
-DB_CONNECTION=sqlite
-```
-
-```textmate
- 1200  composer install
- 1201  php artisan key:generate
- 1202  php artisan make:migrate
- 1203  php artisan migrate
- 1204  php artisan serve
- 1205  php artisan backpack:user
- 1206  php artisan serve
-
-```
-
-## Make sure basset work if website look wrong.
-
-`env` and `env.example` must have line:
-
-```textmate
-BASSET_DISK="basset"
-BASSET_VERIFY_SSL_CERTIFICATE=false
-APP_URL=http://127.0.0.1:8000
-```
-has instance running and run `composer require backpack/basset`
-
-and run `php artisan basset:clear && php artisan basset:cache`
-
-Make sure `APP_URL=http://127.0.0.1:8000`
-
 ### Step to work with this project template
 
 1. Create from laravel 10 with command
@@ -130,18 +96,6 @@ https://github.com/Laravel-Backpack/Settings
 ```textmate
 https://backpackforlaravel.com/docs/6.x/add-ons-official
 ```
-11.teleScope
-
-```textmate
-```textmate
-composer require laravel/telescope
-php artisan telescope:install
-Using telescopeMiddware in it config file.
-app/Http/Middleware/TelescopeMiddleware.php
-
-edit config/telescope.php
-```
-
 ## addition command 
 
 
