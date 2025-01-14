@@ -9,7 +9,7 @@ return [
     ],
 
     // Allow create new translation lines
-    'create' => false,
+    'create' => true,
 
     // This will limit the available groups when creating a new translation line
     // If you want to allow all groups, just leave it empty
@@ -20,7 +20,7 @@ return [
 
     // Display source column
     // Adds a column to the translation lines table to show the source, either database or file
-    'display_source' => false,
+    'display_source' => true,
 
     // If you have Editable Columns addon, Backpack will use it in the translations table.
     'use_editable_columns' => true,

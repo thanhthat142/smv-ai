@@ -39,13 +39,26 @@ Make sure `APP_URL=http://127.0.0.1:8000`
 1020  compose require backpack/language-switcher
 1021  composer require backpack/language-switcher
 1022  composer require backpack/translation-manager
-1023  composer remove laravel/telescope
-1024  composer remove laravel/telescope
 1025  composer remove laravel/telescope
 1026  composer require cviebrock/eloquent-sluggable
 composer require spatie/laravel-translatable
 
 ```
+
+Please note that for install those packages above we must follow instruction, for example
+
+```textmate
+1037  php artisan vendor:publish --provider="Backpack\LanguageSwitcher\LanguageSwitcherServiceProvider" --tag="config"
+ 1038  php artisan serve
+ 1039  php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"\n
+ 1040  php artisan migrate
+ 1041  php artisan backpack:add-menu-content "<x-backpack::menu-item title=\"Translation Manager\" icon=\"la la-stream\" :link=\"backpack_url('translation-manager')\" />"
+ 1042  php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config"\nphp artisan vendor:publish --provider="Backpack\TranslationManager\AddonServiceProvider" --tag="config"
+```
+
+Follow `https://github.com/Laravel-Backpack/language-switcher`
+
+and `https://github.com/Laravel-Backpack/translation-manager`
 
 2. Create migrate table and files needed for category
 
@@ -68,8 +81,7 @@ you may publish them via the lang:publish Artisan command
 ```
 
 ```textmate
-[
-    'vi' => 'VN',
+[   
     'en' => 'EN',
     'lo' => 'LO'
 ]
@@ -101,3 +113,31 @@ easily add/remove themes from your project, using Composer;
 So we can put the file `resources/views/vendor/backpack/theme-coreuiv4/inc/topbar_right_content.blade.php`
 
 with content `@include('backpack.language-switcher::language-switcher')`
+
+### UI CSS change theme
+
+```textmate
+config/backpack/ui.php
+'custom/css/custom.css',
+```
+
+### allow add translation lines
+
+Read in codes:
+
+```textmate
+if (! config('backpack.translation-manager.create', false)) {
+            CRUD::denyAccess('create');
+        }
+```
+
+So we should change `config/backpack/translation-manager.php`
+
+we can also using add translation line instead using from file `admin.php`
+
+### Category logic
+
+1. Tạo các category cha,
+2. Tạo các category con set parent to category cha
+3. Category con nào chỉ có một bài viết thì nó sẽ link tới chi tiết bài viết đó luôn (menu giới thiệu)
+4. Các category con khác sẽ link tới trang danh sách category, các category cha sẽ không có bài viết và đường link, mà chỉ xuất hiện trên menu

@@ -1,0 +1,3 @@
+#crudTable tr th:first-child, #crudTable tr td:first-child, #crudTable table.dataTable tr th:first-child, #crudTable table.dataTable tr td:first-child {
+    display: flex;
+}
