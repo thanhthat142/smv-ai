@@ -134,7 +134,7 @@ class PostCrudController extends CrudController
         CRUD::field('author')->label(trans('admin.author'));
 
         CRUD::addField(['name' => 'desc', 'type' => 'textarea', 'label' => trans('admin.description')]);
-        CRUD::addField(['name' => 'keywords', 'type' => 'textarea', 'label' => trans('admin.keywords')]);
+        //CRUD::addField(['name' => 'keywords', 'type' => 'textarea', 'label' => trans('admin.keywords')]);
         CRUD::addField(['name' => 'image', 'type' => 'upload', 'label' => trans('admin.post_image'), 'withFiles' => true]);
 
 

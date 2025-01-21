@@ -141,3 +141,8 @@ we can also using add translation line instead using from file `admin.php`
 2. Tạo các category con set parent to category cha
 3. Category con nào chỉ có một bài viết thì nó sẽ link tới chi tiết bài viết đó luôn (menu giới thiệu)
 4. Các category con khác sẽ link tới trang danh sách category, các category cha sẽ không có bài viết và đường link, mà chỉ xuất hiện trên menu
+
+### start with frontend
+
+1. Create chuyên mục
+a) dịch vụ order 2. parent

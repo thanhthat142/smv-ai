@@ -22,7 +22,7 @@ class Category extends Model
         return [
             'slug' => [
                 'source' => 'name',
-                'onUpdate' => false,
+                'onUpdate' => true,
             ]
         ];
     }
@@ -45,6 +45,7 @@ class Category extends Model
         'parent_id',
         'order',
         'status',
+        'image',
     ];
 
     public function parent()

@@ -48,6 +48,7 @@ class CategoryCrudController extends CrudController
         CRUD::column('keywords')->type('textarea')->label(trans('admin.description'));
         CRUD::column('order')->type('number')->label(trans('admin.order'));
         CRUD::column('status')->type('select_from_array')->options(Helpers::GENERAL_STATUSES)->label(trans('admin.status'));
+        CRUD::column('image')->type('image')->label(trans('admin.category_image'))->disk('public');
     }
 
     /**
@@ -82,6 +83,7 @@ class CategoryCrudController extends CrudController
             ->type('select_from_array')
             ->options(Helpers::GENERAL_STATUSES)
             ->label(trans('admin.status'));
+        CRUD::addField(['name' => 'image', 'type' => 'upload', 'label' => trans('admin.category_image'), 'withFiles' => true]);
     }
 
     /**
