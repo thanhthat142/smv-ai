@@ -84,7 +84,7 @@ class GenerateData extends Command
                         $post = Post::create([
                             'category_id' => $subCate->id,
                             'status' => Helpers::STATUS_ACTIVE,
-                            'image' => 'uploads/category.jpeg',
+                            'image' => $defaultImagePath,
                         ]);
                         foreach ($translatablePost as $fieldName) {
                             $translations = [];
@@ -101,7 +101,7 @@ class GenerateData extends Command
                     $post = Post::create([
                         'category_id' => $subCate->id,
                         'status' => Helpers::STATUS_ACTIVE,
-                        'image' => 'uploads/category.jpeg',
+                        'image' => $defaultImagePath,
                     ]);
                     foreach ($translatablePost as $fieldName) {
                         $translations = [];
