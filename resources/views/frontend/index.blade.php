@@ -3,82 +3,33 @@
 @section('content')
     @include('frontend.slider')
     <main>
+        @if ($blockServiceCate = \App\Helpers::getIndexBlockServiceCate())
         <section class="services block">
             <div class="container">
-                <h2 class="block-title">Dịch Vụ Của Chúng Tôi</h2>
+                <h2 class="block-title">{{ $blockServiceCate->name }}</h2>
                 <p class="block-desc">
-                    Chúng tôi cung cấp một loạt các dịch vụ chính dưới đây.<br>
-                    Vui lòng nhấp vào một dịch vụ cụ thể để biết thêm về dịch vụ đó.
+                    {!! $blockServiceCate->desc !!}
                 </p>
                 <div class="services-grid">
-                    <!-- Dịch thuật -->
-                    <a href="#" class="service-item" title="Dịch thuật">
-                        <div class="service-title">
-                            <h3>Dịch Thuật</h3>
-                        </div>
-                        <div class="background-overlay"></div>
-                        <div class="service-img">
-                            <img src="/frontend/assets/dv-img-1-CmmEhbaN.jpeg" alt="" class="lazyload">
-                        </div>
-                    </a>
-
-                    <!-- Phiên âm -->
-                    <a href="#" class="service-item" title="Phiên âm">
-                        <div class="service-title">
-                            <h3>Phiên Âm</h3>
-                        </div>
-                        <div class="background-overlay"></div>
-                        <div class="service-img">
-                            <img src="/frontend/assets/dv-img-2-wJcwpFDK.jpeg" alt="" class="lazyload">
-                        </div>
-                    </a>
-
-                    <!-- Phụ đề -->
-                    <a href="#" class="service-item" title="Phụ đề">
-                        <div class="service-title">
-                            <h3>Phụ đề</h3>
-                        </div>
-                        <div class="background-overlay"></div>
-                        <div class="service-img">
-                            <img src="/frontend/assets/dv-img-3-CkQ_GN3g.jpeg" alt="" class="lazyload">
-                        </div>
-                    </a>
-
-                    <!-- Lồng tiếng -->
-                    <a href="#" class="service-item" title="Lồng tiếng">
-                        <div class="service-title">
-                            <h3>Lồng tiếng</h3>
-                        </div>
-                        <div class="background-overlay"></div>
-                        <div class="service-img">
-                            <img src="/frontend/assets/dv-img-4-BmqCnKHi.jpeg" alt="" class="lazyload">
-                        </div>
-                    </a>
-
-                    <!-- Phiên dịch -->
-                    <a href="#" class="service-item" title="Phiên dịch">
-                        <div class="service-title">
-                            <h3>Phiên Dịch</h3>
-                        </div>
-                        <div class="background-overlay"></div>
-                        <div class="service-img">
-                            <img src="/frontend/assets/dv-img-5-Djo4qqeG.jpeg" alt="" class="lazyload">
-                        </div>
-                    </a>
-
-                    <!-- Biên tập -->
-                    <a href="#" class="service-item" title="Biên tập">
-                        <div class="service-title">
-                            <h3>Biên tập</h3>
-                        </div>
-                        <div class="background-overlay"></div>
-                        <div class="service-img">
-                            <img src="/frontend/assets/dv-img-6-BE8upnOo.jpeg" alt="" class="lazyload">
-                        </div>
-                    </a>
+                    @if ($blockServiceCate->children->count() > 0)
+                        @foreach ($blockServiceCate->children as $childCate)
+                            <!-- Dịch thuật -->
+                            <!-- 346x266 -->
+                            <a href="{{ route('frontend.cate', $childCate->slug) }}" class="service-item" title="{{ $childCate->name }}">
+                                <div class="service-title">
+                                    <h3>{{ $childCate->name }}</h3>
+                                </div>
+                                <div class="background-overlay"></div>
+                                <div class="service-img">
+                                    <img src="{{ \App\Helpers::getImageUrlBySize($childCate->image, 346, 266) }}" alt="" class="lazyload">
+                                </div>
+                            </a>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </section>
+        @endif
         <section class="hot-news block">
             <div class="container">
                 <h2 class="block-title">Nổi bật</h2>

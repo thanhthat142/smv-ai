@@ -46,6 +46,7 @@ class Category extends Model
         'order',
         'status',
         'image',
+        'is_news',
     ];
 
     public function parent()

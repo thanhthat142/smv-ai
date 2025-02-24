@@ -142,7 +142,44 @@ we can also using add translation line instead using from file `admin.php`
 3. Category con nào chỉ có một bài viết thì nó sẽ link tới chi tiết bài viết đó luôn (menu giới thiệu)
 4. Các category con khác sẽ link tới trang danh sách category, các category cha sẽ không có bài viết và đường link, mà chỉ xuất hiện trên menu
 
-### start with frontend
+### Block service index
 
-1. Create chuyên mục
-a) dịch vụ order 2. parent
+Tìm category có ID `INDEX_BLOCK_SERVICE_CATEGORY_ID` trong `app/Helpers.php` để show ở block.
+
+### Block news 
+
+Tìm các category có `is_news = true` để hiển thị ngoài index
+
+### Image by size
+
+Cài đặt package repository
+
+```textmate
+1010  composer require intervention/image
+1011  composer require intervention/image-laravel
+```
+
+Sử dụng hàm
+
+```textmate
+public static function getImageUrlBySize($path, $w, $h)
+{
+    $dirXH = $w.'x'.$h;
+    if (!file_exists(public_path('temp/'.$dirXH))) {
+        mkdir(public_path('temp/'.$dirXH), 0777, true);
+    }
+    $urlPath = 'temp/'.$dirXH.'/'.str_replace('/', '-', $path);
+    $existedPath = public_path($urlPath);
+    if (file_exists($existedPath)) {
+        return url($urlPath);
+    }
+    try {
+        $imageManager = Image::read(public_path($path));
+        $imageManager->save(public_path($urlPath));
+        return url($urlPath);
+    } catch (\Exception $exception) {
+        return url('frontend/assets/img/demo1.jpg');
+    }
+
+}
+```

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', '\App\Http\Controllers\FrontendController@index')->name('frontend.index');
 Route::get('/contact', '\App\Http\Controllers\FrontendController@contact')->name('frontend.contact');
-Route::get('/{slug}', '\App\Http\Controllers\FrontendController@cate')->name('frontend.cate');
+//Route::get('/{slug}', '\App\Http\Controllers\FrontendController@cate')->name('frontend.cate');
+
+// Route cho bài viết (post) với đuôi .html
+Route::get('/{postSlug}.html', [FrontendController::class, 'cate'])
+    ->name('frontend.post');
+
+// Route cho danh mục (category)
+Route::get('/{categorySlug}', [FrontendController::class, 'post'])
+    ->name('frontend.cate');
