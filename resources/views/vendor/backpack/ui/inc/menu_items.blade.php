@@ -12,6 +12,6 @@
 </x-backpack::menu-dropdown>
 
 
-<x-backpack::menu-item title='{{ trans('admin.setting_menu') }}' icon='la la-cog' :link="backpack_url('setting')" />
+<x-backpack::menu-item title='Settings' icon='la la-cog' :link="backpack_url('setting')" />
 <x-backpack::menu-item title="{{trans('admin.translation_manager')}}" icon="la la-stream" :link="backpack_url('translation-manager')" />
 
