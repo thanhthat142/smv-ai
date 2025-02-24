@@ -16,7 +16,7 @@ class Helpers
         self::STATUS_INACTIVE => 'Chưa kích hoạt',
     ];
 
-    const INDEX_BLOCK_SERVICE_CATEGORY_ID = 1;
+    const INDEX_BLOCK_SERVICE_CATEGORY_ID = 2;
 
     public static function getCategories()
     {
