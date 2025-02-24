@@ -49,7 +49,7 @@ class CategoryCrudController extends CrudController
         CRUD::column('order')->type('number')->label(trans('admin.order'));
         CRUD::column('status')->type('select_from_array')->options(Helpers::GENERAL_STATUSES)->label(trans('admin.status'));
         CRUD::column('image')->type('image')->label(trans('admin.category_image'))->disk('public');
-        CRUD::column('is_news')->type('boolean')->label('Tin tức?');
+        CRUD::column('is_news')->type('boolean')->label(trans('admin.is_news'));
     }
 
     /**
@@ -85,7 +85,7 @@ class CategoryCrudController extends CrudController
             ->options(Helpers::GENERAL_STATUSES)
             ->label(trans('admin.status'));
         CRUD::addField(['name' => 'image', 'type' => 'upload', 'label' => trans('admin.category_image'), 'withFiles' => true]);
-        CRUD::field('is_news')->type('boolean')->label('Tin tức?');
+        CRUD::field('is_news')->type('boolean')->label(trans('admin.is_news'));
     }
 
     /**

@@ -71,6 +71,15 @@ class Helpers
         return $childIds;
     }
 
+    public  static function getFeatureIndexPosts()
+    {
+        return Post::where('status', self::STATUS_ACTIVE)
+            ->where('is_feature', true)
+            ->orderBy('id', 'desc')
+            ->limit(4)
+            ->get();
+    }
+
     public static function getIndexNewsBlockCategoryWithPosts()
     {
         $cates = Category::whereNull('parent_id')

@@ -30,173 +30,95 @@
             </div>
         </section>
         @endif
-        <section class="hot-news block">
-            <div class="container">
-                <h2 class="block-title">Nổi bật</h2>
-                <div class="hot-news-slider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide hot-news-item">
-                            <a href="#" class="hot-news-img" title="Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024">
-                                <img src="/frontend/assets/nb-img-1-kTP6_QMg.jpg" alt="Nổi bật 1" class="lazyload">
-                            </a>
-                            <div class="hot-news-detail">
-                                <a href="#" class="hot-new-title">Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024 Việt Nam tại Lào tháng 10/2024</a>
-                                <div class="hot-new-desc">
-                                    <p>
-                                        Dự án hợp tác phát triển nông thôn toàn diện là bước tiến mới trong hợp tác giữa hai nước là bước tiến mới trong hợp tác giữa hai nước
-                                    </p>
+        @if ($indexFeaturePosts = \App\Helpers::getFeatureIndexPosts())
+            <section class="hot-news block">
+                <div class="container">
+                    <h2 class="block-title">{{ trans('frontend.index_block_feature_title') }}</h2>
+                    <div class="hot-news-slider">
+                        <div class="swiper-wrapper">
+                            @foreach ($indexFeaturePosts as $post)
+                                <div class="swiper-slide hot-news-item">
+                                <a href="{{ route('frontend.post', $post->slug) }}" class="hot-news-img" title="{{ $post->name }}">
+                                    <img src="{{ \App\Helpers::getImageUrlBySize($post->image, 323, 241) }}" alt="{{ $post->name }}" class="lazyload">
+                                </a>
+                                <div class="hot-news-detail">
+                                    <a href="{{ route('frontend.post', $post->slug) }}" class="hot-new-title">{{ $post->name }}</a>
+                                    <div class="hot-new-desc">
+                                        <p>
+                                            {!! $post->desc !!}
+                                        </p>
+                                    </div>
+                                    <a href="#" class="hot-new-readmore">{{trans('frontend.view_more')}}</a>
                                 </div>
-                                <a href="#" class="hot-new-readmore">Xem thêm</a>
                             </div>
+                            @endforeach
                         </div>
-                        <div class="swiper-slide hot-news-item">
-                            <a href="#" class="hot-news-img" title="Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024">
-                                <img src="/frontend/assets/nb-img-2-C5I3DIfM.jpg" alt="Nổi bật 1" class="lazyload">
-                            </a>
-                            <div class="hot-news-detail">
-                                <a href="#" class="hot-new-title">Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024</a>
-                                <div class="hot-new-desc">
-                                    <p>
-                                        Dự án hợp tác phát triển nông thôn toàn diện là bước tiến mới trong hợp tác giữa hai nước
-                                    </p>
-                                </div>
-                                <a href="#" class="hot-new-readmore">Xem thêm</a>
-                            </div>
+                        <div class="btn-next-prev">
+                            <div class="hot-news-next"></div>
+                            <div class="hot-news-prev"></div>
                         </div>
-                        <div class="swiper-slide hot-news-item">
-                            <a href="#" class="hot-news-img" title="Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024">
-                                <img src="/frontend/assets/nb-img-3-REej8QJX.jpg" alt="Nổi bật 1" class="lazyload">
-                            </a>
-                            <div class="hot-news-detail">
-                                <a href="#" class="hot-new-title">Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024</a>
-                                <div class="hot-new-desc">
-                                    <p>
-                                        Dự án hợp tác phát triển nông thôn toàn diện là bước tiến mới trong hợp tác giữa hai nước
-                                    </p>
-                                </div>
-                                <a href="#" class="hot-new-readmore">Xem thêm</a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide hot-news-item">
-                            <a href="#" class="hot-news-img" title="Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024">
-                                <img src="/frontend/assets/nb-img-1-kTP6_QMg.jpg" alt="Nổi bật 1" class="lazyload">
-                            </a>
-                            <div class="hot-news-detail">
-                                <a href="#" class="hot-new-title">Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024</a>
-                                <div class="hot-new-desc">
-                                    <p>
-                                        Dự án hợp tác phát triển nông thôn toàn diện là bước tiến mới trong hợp tác giữa hai nước
-                                    </p>
-                                </div>
-                                <a href="#" class="hot-new-readmore">Xem thêm</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-next-prev">
-                        <div class="hot-news-next"></div>
-                        <div class="hot-news-prev"></div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
+        @if ($newsBlockPosts = \App\Helpers::getIndexNewsBlockCategoryWithPosts())
         <section class="categories block">
             <div class="container">
-                <h2 class="block-title">Chuyên Mục</h2>
+                <h2 class="block-title">{{ trans('frontend.category') }}</h2>
                 <div class="categories-tabs">
-                    <button class="tab-btn active" data-tab="law">Tin Tức Pháp Luật</button>
-                    <button class="tab-btn" data-tab="reference">Tham Khảo</button>
-                    <button class="tab-btn" data-tab="investment">Tài Liệu Đầu Tư</button>
+                    @foreach ($indexFeaturePosts as $index => $info)
+                        <button class="tab-btn {{ $index == 0 ? 'active': "" }}" data-tab="cate{{ $info['cate']->id }}">{{$info['cate']->name}}</button>
+                    @endforeach
                     <button class="tab-btn more-btn" onclick="window.location.href='/news-list.html'">+</button>
+
                 </div>
 
                 <div class="categories-content">
-                    <!-- Tab Pháp luật -->
-                    <div class="tab-content active" id="law">
+                    @foreach ($indexFeaturePosts as $index => $info)
+                        @if ($info['posts'])
+                    <div class="tab-content {{ $index == 0 ? 'active': "" }}" id="cate{{ $info['cate']->id }}">
                         <div class="news-grid">
+                            @if ($mainPost = array_shift($info['posts']))
                             <!-- Tin chính bên trái -->
-                            <div class="news-main">
-                                <div class="news-img">
-                                    <img src="/frontend/assets/dv-img-1-CmmEhbaN.jpeg" alt="News" class="lazyload">
-                                </div>
-                                <a href="#" class="news-title">Lao động Myanmar tại Lào và những lưu ý đối với doanh nghiệp
-                                    Lao động Myanmar tại Lào và những lưu ý đối với doanh nghiệp
-                                    Lao động Myanmar tại Lào và những lưu ý đối với doanh nghiệp
-                                </a>
-                                <div class="news-meta">07/12/2024</div>
-                                <div class="news-desc">
-                                    <p>Theo thống kê chưa đầy đủ, hiện nay có gần 50.000 lao động Myanmar đang làm việc tại Lào
-                                        Theo thống kê chưa đầy đủ, hiện nay có gần 50.000 lao động Myanmar đang làm việc tại Lào
-                                        Theo thống kê chưa đầy đủ, hiện nay có gần 50.000 lao động Myanmar đang làm việc tại Lào
-                                    </p>
-                                </div>
-                                <a href="#" class="btn-detail">Chi tiết</a>
-                            </div>
-
-                            <!-- Danh sách tin nhỏ bên phải -->
-                            <div class="news-list">
-                                <!-- Tin 1 -->
-                                <div class="news-item">
+                                <div class="news-main">
                                     <div class="news-img">
-                                        <img src="/frontend/assets/dv-img-2-wJcwpFDK.jpeg" alt="News" class="lazyload">
+                                        <img src="{{ \App\Helpers::getImageUrlBySize($mainPost, 556, 432) }}" alt="{{ $mainPost->name }}" class="lazyload">
                                     </div>
-                                    <div class="news-content">
-                                        <a href="#" class="news-title">Bản tin kinh tế Đại sứ quán Việt Nam tại Lào tháng 10/2024
-                                            Theo thống kê chưa đầy đủ, hiện nay có gần 50.000 lao động Myanmar đang làm việc tại Lào
-                                            Theo thống kê chưa đầy đủ, hiện nay có gần 50.000 lao động Myanmar đang làm việc tại Lào
-                                            Theo thống kê chưa đầy đủ, hiện nay có gần 50.000 lao động Myanmar đang làm việc tại Lào
-                                        </a>
-                                        <div class="news-meta">18/11/2024</div>
+                                    <a href="#" class="news-title">{{ $mainPost->name }}</a>
+                                    <div class="news-meta">{{ $mainPost->created_at->format('d/m/Y' }}</div>
+                                    <div class="news-desc">
+                                        <p>{{ $mainPost->desc }}</p>
                                     </div>
+                                    <a href="{{ route('frontend.post', $mainPost->slug) }}" class="btn-detail">{{ trans('frontend.detail') }}</a>
                                 </div>
+                            @endif
+                            @if ($info['posts'])
+                                <!-- Danh sách tin nhỏ bên phải -->
 
-                                <!-- Tin 2 -->
-                                <div class="news-item">
-                                    <div class="news-img">
-                                        <img src="/frontend/assets/dv-img-3-CkQ_GN3g.jpeg" alt="News" class="lazyload">
+                                <div class="news-list">
+                                    <!-- Tin 1 -->
+                                    @foreach ($info['posts'] as $normalPost)
+                                        <div class="news-item">
+                                        <div class="news-img">
+                                            <img src="{{ \App\Helpers::getImageUrlBySize($normalPost, 184, 117) }}" alt="News" class="lazyload">
+                                        </div>
+                                        <div class="news-content">
+                                            <a href="{{ route('frontend.post', $normalPost->slug) }}" class="news-title">{{ $normalPost->name }}</a>
+                                            <div class="news-meta">{{ $normalPost->created_at->format('d/m/Y' }}</div>
+                                        </div>
                                     </div>
-                                    <div class="news-content">
-                                        <a href="#" class="news-title">Tuần san Doanh nghiệp số 28</a>
-                                        <div class="news-meta">09/10/2024</div>
-                                    </div>
+                                    @endforeach
                                 </div>
-
-                                <!-- Tin 3 -->
-                                <div class="news-item">
-                                    <div class="news-img">
-                                        <img src="/frontend/assets/dv-img-4-BmqCnKHi.jpeg" alt="News" class="lazyload">
-                                    </div>
-                                    <div class="news-content">
-                                        <a href="#" class="news-title">Tuần san Doanh nghiệp số 27</a>
-                                        <div class="news-meta">02/10/2024</div>
-                                    </div>
-                                </div>
-
-                                <!-- Tin 4 -->
-                                <div class="news-item">
-                                    <div class="news-img">
-                                        <img src="/frontend/assets/dv-img-5-Djo4qqeG.jpeg" alt="News" class="lazyload">
-                                    </div>
-                                    <div class="news-content">
-                                        <a href="#" class="news-title">Tuần san Doanh nghiệp số 26</a>
-                                        <div class="news-meta">25/09/2024</div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
+                        @endif
+                    @endforeach
 
-                    <!-- Tab Tham khảo -->
-                    <div class="tab-content" id="reference">
-                        <!-- Tương tự như trên -->
-                    </div>
-
-                    <!-- Tab Đầu tư -->
-                    <div class="tab-content" id="investment">
-                        <!-- Tương tự như trên -->
-                    </div>
                 </div>
             </div>
         </section>
+        @endif
         <section class="contact-section">
             <div class="container">
                 <div class="contact-info">

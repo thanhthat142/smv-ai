@@ -62,6 +62,7 @@ class PostCrudController extends CrudController
         CRUD::column('image')->type('image')->label(trans('admin.post_image'))->disk('public');
         CRUD::column('category')->type('relationship')->label(trans('admin.category'));
         CRUD::column('views')->type('number')->label(trans('admin.views'));
+        CRUD::column('is_feature')->type('boolean')->label(trans('admin.is_feature'));
 
         CRUD::addColumn([
             'label'     => trans('admin.keywords'),
@@ -185,6 +186,8 @@ class PostCrudController extends CrudController
             'options' => Helpers::GENERAL_STATUSES,
             'label' => trans('admin.status')
         ]);
+
+        CRUD::field('is_feature')->type('boolean')->label(trans('admin.is_feature'));
 
     }
 

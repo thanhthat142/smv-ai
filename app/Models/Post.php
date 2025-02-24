@@ -44,6 +44,7 @@ class Post extends Model
         'views',
         'category_id',
         'status',
+        'is_feature',
     ];
 
     public function category()

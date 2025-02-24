@@ -159,6 +159,8 @@ Cài đặt package repository
 1011  composer require intervention/image-laravel
 ```
 
+Tạo thư mục `public/temp` : `mkdir public/temp && chmod -R 777 public/temp`
+
 Sử dụng hàm
 
 ```textmate
@@ -182,4 +184,16 @@ public static function getImageUrlBySize($path, $w, $h)
     }
 
 }
+```
+
+## add backpack settings addon
+
+`https://github.com/Laravel-Backpack/Settings`
+
+```textmate
+composer require backpack/settings
+php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider"
+php artisan migrate
+
 ```
