@@ -62,12 +62,12 @@
             </section>
         @endif
         @if ($newsBlockPosts = \App\Helpers::getIndexNewsBlockCategoryWithPosts())
+                    <?php dd( $newsBlockPosts); ?>
         <section class="categories block">
             <div class="container">
                 <h2 class="block-title">{{ trans('frontend.category') }}</h2>
                 <div class="categories-tabs">
                     @foreach ($indexFeaturePosts as $index => $info)
-                        <?php dd( $info); ?>
                         <button class="tab-btn {{ $index == 0 ? 'active': "" }}" data-tab="cate{{ $info['cate']->id }}">{{$info['cate']->name}}</button>
                     @endforeach
                     <button class="tab-btn more-btn" onclick="window.location.href='/news-list.html'">+</button>
