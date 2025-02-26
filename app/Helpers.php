@@ -152,7 +152,7 @@ class Helpers
             return url($urlPath);
         } catch (\Exception $exception) {
             self::log($exception->getMessage());
-            return url('frontend/assets/img/demo1.jpg');
+            return url('/frontend/assets/img/demo1.jpg');
         }
 
     }
