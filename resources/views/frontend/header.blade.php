@@ -1,8 +1,8 @@
 <header class="header">
     <div class="header-container">
         <div class="logo">
-            <a href="/">
-                <img src="/frontend/assets/logo1-CpSXmfgV.png" alt="Mekong Link" class="lazyload">
+            <a href="{{ route('frontend.index') }}">
+                <img src="{{ \App\Helpers::getSettingByKey('website_logo') }}" alt="{{ \App\Helpers::getSettingByKey('website_name') }}" class="lazyload">
             </a>
         </div>
         <nav class="nav">

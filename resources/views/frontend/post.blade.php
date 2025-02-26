@@ -5,7 +5,7 @@
         <section class="block detail-news-page">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="{{ route('frontend.index') }}">{{ trans('frontend.index') }}</a></li>
                     <li><a href="/frontend/list.html">Tin tức</a></li>
                     <li><a href="/frontend/list.html">Tin du lịch</a></li>
                     <li><span>Tour Lào</span></li>
@@ -15,7 +15,6 @@
 
                     <div class="news-meta">
                         <span class="date"><i class="far fa-calendar-alt"></i> 20/03/2024</span>
-                        <span class="author"><i class="far fa-user"></i> Tác giả</span>
                         <span class="views"><i class="far fa-eye"></i> 123 lượt xem</span>
                     </div>
 

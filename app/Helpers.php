@@ -119,6 +119,14 @@ class Helpers
             'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
             'active'      => 1,
         ],
+        [
+            'key'         => 'website_logo',
+            'name'        => 'Logo',
+            'description' => 'For SEO',
+            'value'       => '',
+            'field'       => '{"name":"value","label":"Value","type":"upload"}', //text, textarea
+            'active'      => 1,
+        ],
 
     ];
     const STATUS_ACTIVE = 1;
