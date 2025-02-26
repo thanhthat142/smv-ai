@@ -67,6 +67,7 @@
                 <h2 class="block-title">{{ trans('frontend.category') }}</h2>
                 <div class="categories-tabs">
                     @foreach ($indexFeaturePosts as $index => $infoFeature)
+                        <?php dd($infoFeature); ?>
                         <button class="tab-btn {{ $index == 0 ? 'active': "" }}" data-tab="cate{{ $infoFeature['cate']->id }}">{{$infoFeature['cate']->name}}</button>
                     @endforeach
                     <button class="tab-btn more-btn" onclick="window.location.href='/news-list.html'">+</button>
