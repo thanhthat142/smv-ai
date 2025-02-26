@@ -66,20 +66,19 @@
             <div class="container">
                 <h2 class="block-title">{{ trans('frontend.category') }}</h2>
                 <div class="categories-tabs">
-                    @foreach ($indexFeaturePosts as $index => $infoFeature)
-                        <?php dd($infoFeature); ?>
-                        <button class="tab-btn {{ $index == 0 ? 'active': "" }}" data-tab="cate{{ $infoFeature['cate']->id }}">{{$infoFeature['cate']->name}}</button>
+                    @foreach ($newsBlockPosts as $index => $info)
+                        <button class="tab-btn {{ $index == 0 ? 'active': "" }}" data-tab="cate{{ $info['cate']->id }}">{{$info['cate']->name}}</button>
                     @endforeach
                     <button class="tab-btn more-btn" onclick="window.location.href='/news-list.html'">+</button>
 
                 </div>
 
                 <div class="categories-content">
-                    @foreach ($indexFeaturePosts as $index => $infoFeature)
-                        @if ($infoFeature['posts'])
-                    <div class="tab-content {{ $index == 0 ? 'active': "" }}" id="cate{{ $infoFeature['cate']->id }}">
+                    @foreach ($newsBlockPosts as $index => $info)
+                        @if ($info['posts'])
+                    <div class="tab-content {{ $index == 0 ? 'active': "" }}" id="cate{{ $info['cate']->id }}">
                         <div class="news-grid">
-                            @if ($mainPost = array_shift($infoFeature['posts']))
+                            @if ($mainPost = array_shift($info['posts']))
                             <!-- Tin chính bên trái -->
                                 <div class="news-main">
                                     <div class="news-img">
@@ -93,12 +92,12 @@
                                     <a href="{{ route('frontend.post', $mainPost->slug) }}" class="btn-detail">{{ trans('frontend.detail') }}</a>
                                 </div>
                             @endif
-                            @if ($infoFeature['posts'])
+                            @if ($info['posts'])
                                 <!-- Danh sách tin nhỏ bên phải -->
 
                                 <div class="news-list">
                                     <!-- Tin 1 -->
-                                    @foreach ($infoFeature['posts'] as $normalPost)
+                                    @foreach ($info['posts'] as $normalPost)
                                         <div class="news-item">
                                         <div class="news-img">
                                             <img src="{{ \App\Helpers::getImageUrlBySize($normalPost, 184, 117) }}" alt="News" class="lazyload">
