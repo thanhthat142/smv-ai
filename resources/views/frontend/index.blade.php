@@ -98,7 +98,7 @@
                                 <div class="news-list">
                                     <!-- Tin 1 -->
                                     @foreach ($info['posts'] as $normalPost)
-                                        <div class="news-item">
+                                    <div class="news-item">
                                         <div class="news-img">
                                             <img src="{{ \App\Helpers::getImageUrlBySize($normalPost, 184, 117) }}" alt="News" class="lazyload">
                                         </div>

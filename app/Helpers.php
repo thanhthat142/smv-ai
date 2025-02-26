@@ -151,6 +151,7 @@ class Helpers
             $imageManager->save(public_path($urlPath));
             return url($urlPath);
         } catch (\Exception $exception) {
+            self::log($exception->getMessage());
             return url('frontend/assets/img/demo1.jpg');
         }
 
@@ -227,7 +228,7 @@ class Helpers
             }
             $res[] = $tempRes;
         }
-        self::log($res);
+        //self::log($res);
         return $res;
     }
 
