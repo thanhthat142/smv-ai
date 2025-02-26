@@ -16,7 +16,7 @@ class Helpers
             'key'         => 'meta_index_title',
             'name'        => 'Meta Index Title',
             'description' => 'For SEO',
-            'value'       => 'example.com',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
             'active'      => 1,
         ],
@@ -24,7 +24,7 @@ class Helpers
             'key'         => 'meta_index_desc',
             'name'        => 'Meta Index Description',
             'description' => 'For SEO',
-            'value'       => 'example.com',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
             'active'      => 1,
         ],
@@ -32,7 +32,7 @@ class Helpers
             'key'         => 'meta_index_keywords',
             'name'        => 'Meta Index Keywords',
             'description' => 'For SEO',
-            'value'       => 'example.com',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
             'active'      => 1,
         ],
@@ -40,7 +40,7 @@ class Helpers
             'key'         => 'meta_contact_title',
             'name'        => 'Meta Contact Title',
             'description' => 'For SEO',
-            'value'       => 'example.com',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
             'active'      => 1,
         ],
@@ -48,7 +48,7 @@ class Helpers
             'key'         => 'meta_contact_desc',
             'name'        => 'Meta Contact Description',
             'description' => 'For SEO',
-            'value'       => 'example.com',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
             'active'      => 1,
         ],
@@ -56,7 +56,7 @@ class Helpers
             'key'         => 'meta_contact_keywords',
             'name'        => 'Meta Contact Keywords',
             'description' => 'For SEO',
-            'value'       => 'example.com',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
             'active'      => 1,
         ],
@@ -65,12 +65,12 @@ class Helpers
             'key'         => 'website_name',
             'name'        => 'Website Name',
             'description' => 'For SEO',
-            'value'       => 'example.com',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
             'active'      => 1,
         ],
         [
-            'key'         => 'analytics',
+            'key'         => 'analytics_code',
             'name'        => 'Analytics Code',
             'description' => 'For SEO',
             'value'       => '',
@@ -78,7 +78,7 @@ class Helpers
             'active'      => 1,
         ],
         [
-            'key'         => 'webmaster',
+            'key'         => 'webmaster_code',
             'name'        => 'Webmaster Code',
             'description' => 'For SEO',
             'value'       => '',
@@ -115,7 +115,7 @@ class Helpers
             'key'         => 'company_name',
             'name'        => 'Company Name',
             'description' => 'For SEO',
-            'value'       => 'Công ty CP Truyền thông mùa vàng',
+            'value'       => 'Mekong',
             'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
             'active'      => 1,
         ],
