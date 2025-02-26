@@ -137,21 +137,21 @@
                         </p>
                     </div>
                     <div class="info-box">
-                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" title="Pinterest"><i class="fab fa-pinterest"></i></a>
-                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="{!! \App\Helpers::getSettingByKey('facebook_link') !!}" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{!! \App\Helpers::getSettingByKey('twitter_link') !!}" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="{!! \App\Helpers::getSettingByKey('pinterest_link') !!}" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+                        <a href="{!! \App\Helpers::getSettingByKey('instagram_link') !!}" title="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <h2>Đăng Ký Tư Vấn</h2>
+                    <h2>{{ trans('frontend.contact_form_name') }}</h2>
                     <form method="POST" action="{{ route('frontend.save_contact') }}">
                         {{ csrf_field() }}
-                        <input type="text" name="name" placeholder="Họ và tên">
-                        <input type="email" name="email" placeholder="Email">
-                        <input type="tel" name="phone" placeholder="Số điện thoại">
-                        <textarea name="content" placeholder="Tôi muốn tư vấn về"></textarea>
-                        <button type="submit">Gửi đi</button>
+                        <input type="text" name="name" placeholder="{{ trans('frontend.contact_form_input_name') }}">
+                        <input type="email" name="email" placeholder="{{ trans('frontend.contact_form_input_email') }}">
+                        <input type="tel" name="phone" placeholder="{{ trans('frontend.contact_form_input_phone') }}">
+                        <textarea name="content" placeholder="{{ trans('frontend.contact_form_input_content') }}"></textarea>
+                        <button type="submit">{{ trans('frontend.contact_form_input_submit') }}</button>
                     </form>
                 </div>
             </div>
