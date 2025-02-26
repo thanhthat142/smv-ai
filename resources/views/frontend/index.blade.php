@@ -85,7 +85,7 @@
                                         <img src="{{ \App\Helpers::getImageUrlBySize($mainPost, 556, 432) }}" alt="{{ $mainPost->name }}" class="lazyload">
                                     </div>
                                     <a href="#" class="news-title">{{ $mainPost->name }}</a>
-                                    <div class="news-meta">{{ $mainPost->created_at->format('d/m/Y' }}</div>
+                                    <div class="news-meta">{{ $mainPost->created_at->format('d/m/Y') }}</div>
                                     <div class="news-desc">
                                         <p>{{ $mainPost->desc }}</p>
                                     </div>
