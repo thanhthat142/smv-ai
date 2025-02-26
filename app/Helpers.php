@@ -151,7 +151,7 @@ class Helpers
             $imageManager->save(public_path($urlPath));
             return url($urlPath);
         } catch (\Exception $exception) {
-            self::log($exception->getMessage());
+            self::log($exception->getMessage()." with path = ".$path);
             return url('/frontend/assets/img/demo1.jpg');
         }
 
