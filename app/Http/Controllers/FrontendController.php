@@ -48,10 +48,10 @@ class FrontendController extends Controller
         return view('frontend.post', compact('post'));
     }
 
-    public function saveContact($request)
+    public function saveContact()
     {
         try {
-            Contact::create($request->all());
+            Contact::create(request()->all());
         } catch (\Exception $e) {
 
         }
