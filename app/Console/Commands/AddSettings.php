@@ -41,12 +41,17 @@ class AddSettings extends Command
     public function handle()
     {
         DB::table('settings')->truncate();
-        foreach (Helpers::SETTINGS as $index => $setting) {
-            if (DB::table('settings')->where('key', $setting['key'])->count() == 0) {
-                DB::table('settings')->insert($setting);
-            }
+        foreach (Helpers::SETTING_FIELDS as $key => $type) {
+            DB::table('settings')->insert([
+                'key'         => $key,
+                'name'        => $key,
+                'description' => '',
+                'value'       => '',
+                'field'       => '{"name":"value","label":"Value","type":"'.$type.'"}', //text, textarea
+                'active'      => 1,
+            ]);
 
         }
-        $this->line('Inserted '.count(Helpers::SETTINGS).' records.');
+        $this->line('Inserted '.count(Helpers::SETTING_FIELDS).' records.');
     }
 }

@@ -124,16 +124,16 @@
                 <div class="contact-info">
                     <div class="info-box">
                         <i class="fas fa-map-marker-alt"></i>
-                        <p>{!! \App\Helpers::getSettingByKey('address') !!} </p>
+                        <p>{!! \App\Helpers::getSettingByKey('contact_address') !!} </p>
                     </div>
                     <div class="info-box">
                         <i class="fas fa-volume-control-phone"></i>
-                        <p>{!! \App\Helpers::getSettingByKey('phone') !!}</p>
+                        <p>{!! \App\Helpers::getSettingByKey('contact_phone') !!}</p>
                     </div>
                     <div class="info-box">
                         <i class="fas fa-envelope"></i>
                         <p>
-                            {!! \App\Helpers::getSettingByKey('email') !!}
+                            {!! \App\Helpers::getSettingByKey('contact_email') !!}
                         </p>
                     </div>
                     <div class="info-box">

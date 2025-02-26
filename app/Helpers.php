@@ -11,123 +11,29 @@ use Intervention\Image\Laravel\Facades\Image;
 class Helpers
 {
 
-    public const SETTINGS = [
-        [
-            'key'         => 'meta_index_title',
-            'name'        => 'Meta Index Title',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'meta_index_desc',
-            'name'        => 'Meta Index Description',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'meta_index_keywords',
-            'name'        => 'Meta Index Keywords',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'meta_contact_title',
-            'name'        => 'Meta Contact Title',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'meta_contact_desc',
-            'name'        => 'Meta Contact Description',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'meta_contact_keywords',
-            'name'        => 'Meta Contact Keywords',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
+    public const SETTING_FIELDS = [
+        'meta_index_title' => 'text',
+        'meta_index_desc' => 'textarea',
+        'meta_index_keywords' => 'text',
 
-        [
-            'key'         => 'website_name',
-            'name'        => 'Website Name',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'analytics_code',
-            'name'        => 'Analytics Code',
-            'description' => 'For SEO',
-            'value'       => '',
-            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'webmaster_code',
-            'name'        => 'Webmaster Code',
-            'description' => 'For SEO',
-            'value'       => '',
-            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
-            'active'      => 1,
-        ],
+        'meta_contact_title' => 'text',
+        'meta_contact_desc' => 'textarea',
+        'meta_contact_keywords' => 'text',
 
-        [
-            'key'         => 'contact_phone',
-            'name'        => 'Contact Phone',
-            'description' => 'For SEO',
-            'value'       => '(+880) 762 0813 <br/> (+785) 098 5648',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'contact_email',
-            'name'        => 'Contact Email',
-            'description' => 'For SEO',
-            'value'       => 'banbientap@luxbrand.vn',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'address',
-            'name'        => 'Address',
-            'description' => 'For SEO',
-            'value'       => 'Ta-134/A, Gulshan Badda <br/> Link Rd Dhaka',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
+        'website_name' => 'text',
+        'analytics_code' => 'text',
+        'webmaster_code' => 'text',
 
-        [
-            'key'         => 'company_name',
-            'name'        => 'Company Name',
-            'description' => 'For SEO',
-            'value'       => 'Mekong',
-            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
-            'active'      => 1,
-        ],
-        [
-            'key'         => 'website_logo',
-            'name'        => 'Logo',
-            'description' => 'For SEO',
-            'value'       => '/example/logo1.png',
-            'field'       => '{"name":"value","label":"Value","type":"upload"}', //text, textarea
-            'active'      => 1,
-        ],
+        'contact_phone' => 'text',
+        'contact_email' => 'text',
+        'contact_address' => 'textarea',
+        'company_name' => 'text',
+        'website_logo' => 'text',
 
+        'facebook_link' => 'text',
+        'twitter_link' => 'text',
+        'instagram_link' => 'text',
+        'pinterest_link' => 'text',
     ];
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 2;
