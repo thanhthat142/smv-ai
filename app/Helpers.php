@@ -227,8 +227,18 @@ class Helpers
             }
             $res[] = $tempRes;
         }
-        dd($res);
+        self::log($res);
         return $res;
+    }
+
+    public static function log($msg): void
+    {
+        if (is_array($msg)) {
+            $message = json_encode($msg, true);
+        } else {
+            $message = $msg;
+        }
+        @file_put_contents(storage_path('logs/debug.log'), $message . "\n", FILE_APPEND);
     }
 
 }
