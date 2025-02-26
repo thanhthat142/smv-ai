@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="news-content">
                                             <a href="{{ route('frontend.post', $normalPost->slug) }}" class="news-title">{{ $normalPost->name }}</a>
-                                            <div class="news-meta">{{ $normalPost->created_at->format('d/m/Y' }}</div>
+                                            <div class="news-meta">{{ $normalPost->created_at->format('d/m/Y') }}</div>
                                         </div>
                                     </div>
                                     @endforeach
