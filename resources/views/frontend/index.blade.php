@@ -124,19 +124,16 @@
                 <div class="contact-info">
                     <div class="info-box">
                         <i class="fas fa-map-marker-alt"></i>
-                        <p>Ta-134/A, Gulshan Badda<br>Link Rd Dhaka</p>
+                        <p>{!! \App\Helpers::getSettingByKey('address') !!} </p>
                     </div>
                     <div class="info-box">
                         <i class="fas fa-volume-control-phone"></i>
-                        <p><a href="tel:+8807620813">(+880) 762 0813</a>
-                            <br> <a href="tel:+7850985648">(+785) 098 5648</a></p>
+                        <p>{!! \App\Helpers::getSettingByKey('phone') !!}</p>
                     </div>
                     <div class="info-box">
                         <i class="fas fa-envelope"></i>
                         <p>
-                            <a href="mailto:info@yourmail.com">info@yourmail.com</a>
-                            <br>
-                            <a href="mailto:info@exe.com">info@exe.com</a>
+                            {!! \App\Helpers::getSettingByKey('email') !!}
                         </p>
                     </div>
                     <div class="info-box">
@@ -148,11 +145,12 @@
                 </div>
                 <div class="contact-form">
                     <h2>Đăng Ký Tư Vấn</h2>
-                    <form>
-                        <input type="text" placeholder="Họ và tên">
-                        <input type="email" placeholder="Email">
-                        <input type="tel" placeholder="Số điện thoại">
-                        <textarea placeholder="Tôi muốn tư vấn về"></textarea>
+                    <form method="POST" action="{{ route('frontend.save_contact') }}">
+                        {{ csrf_field() }}
+                        <input type="text" name="name" placeholder="Họ và tên">
+                        <input type="email" name="email" placeholder="Email">
+                        <input type="tel" name="phone" placeholder="Số điện thoại">
+                        <textarea name="content" placeholder="Tôi muốn tư vấn về"></textarea>
                         <button type="submit">Gửi đi</button>
                     </form>
                 </div>

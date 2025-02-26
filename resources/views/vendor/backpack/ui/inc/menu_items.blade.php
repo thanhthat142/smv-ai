@@ -4,6 +4,9 @@
 <x-backpack::menu-item title="{{ trans('admin.category') }}" icon="la la-question" :link="backpack_url('category')" />
 <x-backpack::menu-item title="{{trans('admin.post')}}" icon="la la-question" :link="backpack_url('post')" />
 
+
+<x-backpack::menu-item title="Contacts" icon="la la-question" :link="backpack_url('contact')" />
+
 <x-backpack::menu-dropdown title="{{trans('admin.admin_manager')}}" icon="la la-puzzle-piece">
     <x-backpack::menu-dropdown-header title="Authentication" />
     <x-backpack::menu-dropdown-item title="Users" icon="la la-user" :link="backpack_url('user')" />

@@ -18,6 +18,9 @@ Route::get('/', '\App\Http\Controllers\FrontendController@index')->name('fronten
 Route::get('/contact', '\App\Http\Controllers\FrontendController@contact')->name('frontend.contact');
 //Route::get('/{slug}', '\App\Http\Controllers\FrontendController@cate')->name('frontend.cate');
 
+Route::post('/save-contact', [FrontendController::class, 'saveContact'])
+    ->name('frontend.save_contact');
+
 // Route cho bài viết (post) với đuôi .html
 Route::get('/{postSlug}.html', [FrontendController::class, 'cate'])
     ->name('frontend.post');

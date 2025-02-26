@@ -195,5 +195,10 @@ composer require backpack/settings
 php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider" --tag="config"
 php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider"
 php artisan migrate
-
 ```
+Note : khong thể dùng trans trong url settings vì sẽ không hiện.
+```textmate
+<x-backpack::menu-item title='Settings' icon='la la-cog' :link="backpack_url('setting')" />
+```
+
+chạy `php artisan add:settings`

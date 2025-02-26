@@ -5,10 +5,122 @@ namespace App;
 
 use App\Models\Category;
 use App\Models\Post;
+use Backpack\Settings\app\Models\Setting;
 use Intervention\Image\Laravel\Facades\Image;
 
 class Helpers
 {
+
+    public const SETTINGS = [
+        [
+            'key'         => 'meta_index_title',
+            'name'        => 'Meta Index Title',
+            'description' => 'For SEO',
+            'value'       => 'example.com',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'meta_index_desc',
+            'name'        => 'Meta Index Description',
+            'description' => 'For SEO',
+            'value'       => 'example.com',
+            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'meta_index_keywords',
+            'name'        => 'Meta Index Keywords',
+            'description' => 'For SEO',
+            'value'       => 'example.com',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'meta_contact_title',
+            'name'        => 'Meta Contact Title',
+            'description' => 'For SEO',
+            'value'       => 'example.com',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'meta_contact_desc',
+            'name'        => 'Meta Contact Description',
+            'description' => 'For SEO',
+            'value'       => 'example.com',
+            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'meta_contact_keywords',
+            'name'        => 'Meta Contact Keywords',
+            'description' => 'For SEO',
+            'value'       => 'example.com',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+
+        [
+            'key'         => 'website_name',
+            'name'        => 'Website Name',
+            'description' => 'For SEO',
+            'value'       => 'example.com',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'analytics',
+            'name'        => 'Analytics Code',
+            'description' => 'For SEO',
+            'value'       => '',
+            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'webmaster',
+            'name'        => 'Webmaster Code',
+            'description' => 'For SEO',
+            'value'       => '',
+            'field'       => '{"name":"value","label":"Value","type":"textarea"}', //text, textarea
+            'active'      => 1,
+        ],
+
+        [
+            'key'         => 'contact_phone',
+            'name'        => 'Contact Phone',
+            'description' => 'For SEO',
+            'value'       => '(+880) 762 0813 <br/> (+785) 098 5648',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'contact_email',
+            'name'        => 'Contact Email',
+            'description' => 'For SEO',
+            'value'       => 'banbientap@luxbrand.vn',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+        [
+            'key'         => 'address',
+            'name'        => 'Address',
+            'description' => 'For SEO',
+            'value'       => 'Ta-134/A, Gulshan Badda <br/> Link Rd Dhaka',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+
+        [
+            'key'         => 'company_name',
+            'name'        => 'Company Name',
+            'description' => 'For SEO',
+            'value'       => 'Công ty CP Truyền thông mùa vàng',
+            'field'       => '{"name":"value","label":"Value","type":"text"}', //text, textarea
+            'active'      => 1,
+        ],
+
+    ];
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 2;
     const GENERAL_STATUSES = [
@@ -42,6 +154,11 @@ class Helpers
             return url('frontend/assets/img/demo1.jpg');
         }
 
+    }
+
+    public  static function  getSettingByKey($key)
+    {
+        return Setting::get($key);
     }
 
     public static function getIndexBlockServiceCate()

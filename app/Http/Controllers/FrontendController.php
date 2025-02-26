@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -45,5 +46,15 @@ class FrontendController extends Controller
             return redirect(route('frontend.index'));
         }
         return view('frontend.post', compact('post'));
+    }
+
+    public function saveContact($request)
+    {
+        try {
+            Contact::create($request->all());
+        } catch (\Exception $e) {
+
+        }
+        return redirect(route('frontend.index'));
     }
 }
