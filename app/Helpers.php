@@ -120,11 +120,11 @@ class Helpers
             'active'      => 1,
         ],
         [
-            'key'         => 'website_logo1',
+            'key'         => 'website_logo',
             'name'        => 'Logo',
             'description' => 'For SEO',
-            'value'       => '',
-            'field'       => '{"name":"value","label":"Value","type":"upload", "withFiles", "true"}', //text, textarea
+            'value'       => '/example/logo1.png',
+            'field'       => '{"name":"value","label":"Value","type":"upload"}', //text, textarea
             'active'      => 1,
         ],
 
