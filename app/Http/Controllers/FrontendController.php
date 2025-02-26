@@ -23,21 +23,18 @@ class FrontendController extends Controller
     public function cate($slug)
     {
         $cate = Category::findBySlug($slug);
+
         if (!$cate) {
             return redirect(route('frontend.index'));
         }
         // get current post for category
         $posts = Post::where('category_id', $cate->id)->where('status', Helpers::STATUS_ACTIVE)->limit(10)->get();
 
-        if ($posts->count() == 0) {
-            return redirect(route('frontend.index'));
-        }
-
         if ($posts->count() == 1) {
             $post = $posts->first();
             return view('frontend.post', compact('post'));
         }
-        return view('frontend.cate', compact('cate'));
+        return view('frontend.cate', compact('cate', 'posts'));
     }
 
     public function post($slug) {

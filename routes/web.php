@@ -22,9 +22,9 @@ Route::post('/save-contact', [FrontendController::class, 'saveContact'])
     ->name('frontend.save_contact');
 
 // Route cho bài viết (post) với đuôi .html
-Route::get('/{postSlug}.html', [FrontendController::class, 'cate'])
+Route::get('/{postSlug}.html', [FrontendController::class, 'post'])
     ->name('frontend.post');
 
 // Route cho danh mục (category)
-Route::get('/{categorySlug}', [FrontendController::class, 'post'])
+Route::get('/{categorySlug}', [FrontendController::class, 'cate'])
     ->name('frontend.cate');

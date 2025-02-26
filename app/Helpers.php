@@ -73,7 +73,7 @@ class Helpers
 
     public  static function  getSettingByKey($key)
     {
-        return Setting::get($key);
+        return Setting::get($key) ?? "";
     }
 
     public static function getIndexBlockServiceCate()
