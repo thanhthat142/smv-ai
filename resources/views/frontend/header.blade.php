@@ -2,7 +2,7 @@
     <div class="header-container">
         <div class="logo">
             <a href="{{ route('frontend.index') }}">
-                <img src="{{ \App\Helpers::getSettingByKey('website_logo') }}" alt="{{ \App\Helpers::getSettingByKey('website_name') }}" class="lazyload">
+                <img src="{{ url('/uploads/'.\App\Helpers::getSettingByKey('website_logo')) }}" alt="{{ \App\Helpers::getSettingByKey('website_name') }}" class="lazyload">
             </a>
         </div>
         <nav class="nav">
