@@ -48,7 +48,7 @@
                                             {!! $post->desc !!}
                                         </p>
                                     </div>
-                                    <a href="#" class="hot-new-readmore">{{trans('frontend.view_more')}}</a>
+                                    <a href="{{ route('frontend.post', $post->slug) }}" class="hot-new-readmore">{{trans('frontend.view_more')}}</a>
                                 </div>
                             </div>
                             @endforeach
@@ -84,7 +84,7 @@
                                     <div class="news-img">
                                         <img src="{{ \App\Helpers::getImageUrlBySize($mainPost, 556, 432) }}" alt="{{ $mainPost->name }}" class="lazyload">
                                     </div>
-                                    <a href="#" class="news-title">{{ $mainPost->name }}</a>
+                                    <a href="{{ route('frontend.post', $mainPost->slug) }}" class="news-title">{{ $mainPost->name }}</a>
                                     <div class="news-meta">{{ $mainPost->created_at->format('d/m/Y') }}</div>
                                     <div class="news-desc">
                                         <p>{{ $mainPost->desc }}</p>

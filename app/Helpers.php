@@ -217,7 +217,7 @@ class Helpers
             // get all child cate of cate
             $childIds = self::getAllChildCategoryIds($cate->id);
             $posts = Post::where('status', self::STATUS_ACTIVE)
-                ->whereIn('category_id', array_merge($cate->id, $childIds))
+                ->whereIn('category_id', array_merge([$cate->id], $childIds))
                 ->limit(5)
                 ->get();
             if ($posts->count() > 0) {
