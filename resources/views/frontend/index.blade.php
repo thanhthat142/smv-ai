@@ -82,7 +82,7 @@
                             <!-- Tin chính bên trái -->
                                 <div class="news-main">
                                     <div class="news-img">
-                                        <img src="{{ \App\Helpers::getImageUrlBySize($mainPost, 556, 432) }}" alt="{{ $mainPost->name }}" class="lazyload">
+                                        <img src="{{ \App\Helpers::getImageUrlBySize($mainPost->image, 556, 432) }}" alt="{{ $mainPost->name }}" class="lazyload">
                                     </div>
                                     <a href="{{ route('frontend.post', $mainPost->slug) }}" class="news-title">{{ $mainPost->name }}</a>
                                     <div class="news-meta">{{ $mainPost->created_at->format('d/m/Y') }}</div>
@@ -100,7 +100,7 @@
                                     @foreach ($info['posts'] as $normalPost)
                                     <div class="news-item">
                                         <div class="news-img">
-                                            <img src="{{ \App\Helpers::getImageUrlBySize($normalPost, 184, 117) }}" alt="News" class="lazyload">
+                                            <img src="{{ \App\Helpers::getImageUrlBySize($normalPost->image, 184, 117) }}" alt="News" class="lazyload">
                                         </div>
                                         <div class="news-content">
                                             <a href="{{ route('frontend.post', $normalPost->slug) }}" class="news-title">{{ $normalPost->name }}</a>
