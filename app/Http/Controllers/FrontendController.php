@@ -7,21 +7,32 @@ use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
 {
     public function index()
     {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
         return view('frontend.index');
     }
 
     public function contact()
     {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
         return view('frontend.contact');
     }
 
     public function cate($slug)
     {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
         $cate = Category::findBySlug($slug);
 
         if (!$cate) {
@@ -38,6 +49,9 @@ class FrontendController extends Controller
     }
 
     public function post($slug) {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
         $post = Post::findBySlug($slug);
         if (!$post) {
             return redirect(route('frontend.index'));
@@ -53,5 +67,11 @@ class FrontendController extends Controller
 
         }
         return redirect(route('frontend.index'));
+    }
+
+    public function setLang($value)
+    {
+        Session::put('locale', $value);
+        return redirect('/');
     }
 }

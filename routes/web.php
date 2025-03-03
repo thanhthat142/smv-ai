@@ -21,6 +21,8 @@ Route::get('/contact', '\App\Http\Controllers\FrontendController@contact')->name
 Route::post('/save-contact', [FrontendController::class, 'saveContact'])
     ->name('frontend.save_contact');
 
+Route::get('set-lang/{value}', [FrontendController::class, 'setLang'])->name('frontend.set-lang');
+
 // Route cho bài viết (post) với đuôi .html
 Route::get('/{postSlug}.html', [FrontendController::class, 'post'])
     ->name('frontend.post');
@@ -28,3 +30,5 @@ Route::get('/{postSlug}.html', [FrontendController::class, 'post'])
 // Route cho danh mục (category)
 Route::get('/{categorySlug}', [FrontendController::class, 'cate'])
     ->name('frontend.cate');
+
+

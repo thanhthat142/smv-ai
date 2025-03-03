@@ -41,13 +41,13 @@
         </nav>
         <div class="right-header">
             <div class="language-select">
-                <a href="#" class="lang-item active">
+                <a href="{{ route('frontend.set-lang', 'vi') }}" class="lang-item {{ App::getLocale() == 'vi' ? "active" : ""}}">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAMAAABBPP0LAAAATlBMVEX+AAD2AADvAQH/eXn+cXL9amr8YmL9Wlr8UlL7TkvoAAD8d0f6Pz/3ODf2Ly/0KSf6R0f6wTv60T31IBz6+jr4+Cv3QybzEhL4bizhAADgATv8AAAAW0lEQVR4AQXBgU3DQBRAMb+7jwKVUPefkQEQTYJqByBENpKUGoZslXoN5LPONH8G9WWZ7pGlOn6XZmaGRce1J/seei4dl+7dPWDqkk7+58e3+igdlySPcYbwBG+lPhCjrtt9EgAAAABJRU5ErkJggg==" alt="{{ trans('frontend.vietnamese_lang') }}" class="lazyload">
                 </a>
-                <a href="#" class="lang-item">
+                <a href="{{ route('frontend.set-lang', 'lo') }}" class="lang-item {{ App::getLocale() == 'lo' ? "active" : ""}}">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAMAAABBPP0LAAAAdVBMVEX9AAD3AADxAADqAAD+eHj8bGz6X1/4UFBsAk3BkLKxd6CkZJOfW42aUoaWS34dAAAAFbyCnuJvjNtjhNnQ2PBJcM89Zs1Ye9UAAIjt8Pf5+fnl6fMxXcknVsbK1O1LADyOSoOGPHuAMXIAAAD0Pj7yLi7dAACHPBxNAAAAWklEQVR4AQXBsXXCUBRAMd3vh+GkSUFNxf6TsQEQO1JAEMpARHy7FRLpb+ZWci7HJjWIa3pn/1hkzjiPfXdY4HLSIhbG8Z75XoX5fZXu+hHbVhfhQVALwRP4B83LD80lYhurAAAAAElFTkSuQmCC" alt="{{ trans('frontend.lao_lang') }}" class="lazyload">
                 </a>
-                <a href="#" class="lang-item">
+                <a href="{{ route('frontend.set-lang', 'end') }}" class="lang-item {{ App::getLocale() == 'en' ? "active" : ""}}">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAMAAABBPP0LAAAAmVBMVEViZsViZMJiYrf9gnL8eWrlYkjgYkjZYkj8/PujwPybvPz4+PetraBEgfo+fvo3efkydfkqcvj8Y2T8UlL8Q0P8MzP9k4Hz8/Lu7u4DdPj9/VrKysI9fPoDc/EAZ7z7IiLHYkjp6ekCcOTk5OIASbfY/v21takAJrT5Dg6sYkjc3Nn94t2RkYD+y8KeYkjs/v7l5fz0dF22YkjWvcOLAAAAgElEQVR4AR2KNULFQBgGZ5J13KGGKvc/Cw1uPe62eb9+Jr1EUBFHSgxxjP2Eca6AfUSfVlUfBvm1Ui1bqafctqMndNkXpb01h5TLx4b6TIXgwOCHfjv+/Pz+5vPRw7txGWT2h6yO0/GaYltIp5PT1dEpLNPL/SdWjYjAAZtvRPgHJX4Xio+DSrkAAAAASUVORK5CYII=" alt="{{ trans('frontend.en_lang') }}" class="lazyload">
                 </a>
             </div>
