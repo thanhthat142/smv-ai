@@ -135,6 +135,7 @@ class PostCrudController extends CrudController
         CRUD::field('author')->label(trans('admin.author'));
 
         CRUD::addField(['name' => 'desc', 'type' => 'textarea', 'label' => trans('admin.description')]);
+
         //CRUD::addField(['name' => 'keywords', 'type' => 'textarea', 'label' => trans('admin.keywords')]);
         CRUD::addField(['name' => 'image', 'type' => 'upload', 'label' => trans('admin.post_image'), 'withFiles' => true]);
 
@@ -149,6 +150,24 @@ class PostCrudController extends CrudController
                 return $query->whereDoesntHave('children')->orderBy('name', 'ASC')->get();
             }),
         ]);
+
+        CRUD::addField(
+            [   // CKEditor
+                'name'          => 'summary',
+                'label'         => trans('admin.summary'),
+                'type'          => 'ckeditor',
+
+                // optional:
+                //'extra_plugins' => ['font', 'youtube', 'resize', 'maximize', 'tabletoolstoolbar', 'simplebox'],
+                'options'       => [
+                    'autoGrow_minHeight'   => 200,
+                    'autoGrow_bottomSpace' => 50,
+                    //'removePlugins'        => 'resize,maximize',
+                    'extraAllowedContent' => 'iframe[*]'
+                ],
+
+            ]
+        );
 
         CRUD::addField(
             [   // CKEditor

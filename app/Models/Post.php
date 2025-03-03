@@ -17,7 +17,7 @@ class Post extends Model
 
     use HasTranslations;
 
-    protected $translatable = ['name', 'desc', 'keywords', 'content', 'author'];
+    protected $translatable = ['name', 'desc', 'keywords', 'content', 'author', 'summary'];
 
 
     public function sluggable(): array
@@ -45,6 +45,7 @@ class Post extends Model
         'category_id',
         'status',
         'is_feature',
+        'summary',
     ];
 
     public function category()

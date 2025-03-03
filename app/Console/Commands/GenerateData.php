@@ -43,7 +43,7 @@ class GenerateData extends Command
         $defaultImagePath = 'uploads/default.jpeg';
 
         $translatableCate = ['name', 'desc', 'keywords'];
-        $translatablePost = ['name', 'desc', 'keywords', 'content'];
+        $translatablePost = ['name', 'desc', 'keywords', 'content', 'summary'];
         foreach ([1,2,3,4] as $cateListIndex) {
             // create root categories
             $cate = Category::create([
