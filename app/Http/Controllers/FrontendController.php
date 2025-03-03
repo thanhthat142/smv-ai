@@ -34,7 +34,7 @@ class FrontendController extends Controller
             $post = $posts->first();
             return view('frontend.post', compact('post'));
         }
-        return view('frontend.cate', compact('cate', 'posts'));
+        return view('frontend.category', compact('cate', 'posts'));
     }
 
     public function post($slug) {
