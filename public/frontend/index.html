@@ -159,6 +159,9 @@
         <div class="swiper-button-prev"></div>
       </div>
       <main>
+         <p>
+             <button id="call_phone">Call</button>
+         </p>
         <section class="services block">
           <div class="container">
             <h2 class="block-title">Dịch Vụ Của Chúng Tôi</h2>
@@ -488,4 +491,36 @@
       </button>
     </div>
   </body>
+  <script src="/frontend/js/jquery-2.2.4.min.js"></script>
+  <script src="https://hn.ss.bfcplatform.vn/microfrontend/dependencies/webphone/2.0/sdk.min.js"></script>
+  <script>
+      const sdk = new BfcWebphoneSDK()
+      sdk.init(
+          {
+              username: 'thiekimlove',
+              password: 'Quanhoa@1234',
+              listeners: {
+                  registered(data) {
+                      console.log('registerd', data)
+                  },
+                  callOutgoing(data) {
+                      console.log('call outgoing', data)
+                  },
+                  callEnded(data) {
+                      console.log('ended', data)
+                  }
+              },
+              register: false,
+          },
+          (data) => console.log('init sdk done', data)
+      )
+  </script>
+<script>
+    $(function () {
+
+        $('#call_phone').click(function () {
+            sdk.makeCall('0903347191', null);
+        });
+    })
+</script>
 </html>
