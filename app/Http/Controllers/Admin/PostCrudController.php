@@ -59,7 +59,13 @@ class PostCrudController extends CrudController
         CRUD::column('name')->label(trans('admin.name'));
         CRUD::column('desc')->label(trans('admin.description'));
         CRUD::column('author')->label(trans('admin.author'));
-        CRUD::column('image')->type('image')->label(trans('admin.post_image'))->disk('public');
+
+        CRUD::addColumn([
+            'label' => trans('admin.post_image'),
+            'type' => 'image',
+            'name' => 'image',
+            'disk' => 'uploads'
+        ]);
         CRUD::column('category')->type('relationship')->label(trans('admin.category'));
         CRUD::column('views')->type('number')->label(trans('admin.views'));
         CRUD::column('is_feature')->type('boolean')->label(trans('admin.is_feature'));
@@ -137,7 +143,9 @@ class PostCrudController extends CrudController
         CRUD::addField(['name' => 'desc', 'type' => 'textarea', 'label' => trans('admin.description')]);
 
         //CRUD::addField(['name' => 'keywords', 'type' => 'textarea', 'label' => trans('admin.keywords')]);
-        CRUD::addField(['name' => 'image', 'type' => 'upload', 'label' => trans('admin.post_image'), 'withFiles' => true]);
+        CRUD::addField(['name' => 'image', 'type' => 'upload', 'label' => trans('admin.post_image'), 'withFiles' => [
+            'disk' => 'uploads', // the disk where file will be stored
+        ]]);
 
 
         CRUD::addField([
