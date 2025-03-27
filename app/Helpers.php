@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Backpack\Settings\app\Models\Setting;
 use Intervention\Image\Laravel\Facades\Image;
+use function PHPUnit\Framework\directoryExists;
 
 class Helpers
 {
@@ -51,11 +52,14 @@ class Helpers
 
     public static function getImageUrlBySize($path, $w, $h)
     {
+        if (!directoryExists(public_path('temp'))) {
+            mkdir(public_path('temp'), 0777, true);
+        }
         $dirXH = $w.'x'.$h;
-        if (!file_exists(public_path('temp/'.$dirXH))) {
+        if (!directoryExists(public_path('temp/'.$dirXH))) {
             mkdir(public_path('temp/'.$dirXH), 0777, true);
         }
-        $urlPath = 'temp/'.$dirXH.'/'.str_replace('/', '-', $path);
+        $urlPath = 'temp/'.$dirXH.'/'.urlencode(str_replace('/', '-', $path));
         $existedPath = public_path($urlPath);
         if (file_exists($existedPath)) {
             return url($urlPath);
@@ -66,9 +70,8 @@ class Helpers
             return url($urlPath);
         } catch (\Exception $exception) {
             self::log($exception->getMessage()." with path = ".$path);
-            return url('/frontend/assets/img/demo1.jpg');
         }
-
+        return url('/frontend/assets/img/demo1.jpg');
     }
 
     public  static function  getSettingByKey($key)
