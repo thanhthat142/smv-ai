@@ -6,6 +6,7 @@ namespace App;
 use App\Models\Category;
 use App\Models\Post;
 use Backpack\Settings\app\Models\Setting;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 use function PHPUnit\Framework\directoryExists;
 
@@ -52,12 +53,13 @@ class Helpers
 
     public static function getImageUrlBySize($path, $w, $h)
     {
-        if (!directoryExists(public_path('temp'))) {
+        if (!is_dir(public_path('temp'))) {
             mkdir(public_path('temp'), 0777, true);
         }
         $dirXH = $w.'x'.$h;
-        if (!directoryExists(public_path('temp/'.$dirXH))) {
-            mkdir(public_path('temp/'.$dirXH), 0777, true);
+        $whDir = public_path('temp/'.$dirXH);
+        if (!is_dir($whDir)) {
+            mkdir($whDir, 0777, true);
         }
         $urlPath = 'temp/'.$dirXH.'/'.urlencode(str_replace('/', '-', $path));
         $existedPath = public_path($urlPath);
@@ -65,11 +67,11 @@ class Helpers
             return url($urlPath);
         }
         try {
-            $imageManager = Image::read(public_path($path));
-            $imageManager->save(public_path($urlPath));
+            $imageManager = Image::read(Storage::disk('uploads')->get($path));
+            $imageManager->save($existedPath);
             return url($urlPath);
         } catch (\Exception $exception) {
-            self::log($exception->getMessage()." with path = ".$path);
+            self::log($exception->getMessage()." with path = ".$path." and urlPath=".$urlPath);
         }
         return url('/frontend/assets/img/demo1.jpg');
     }
