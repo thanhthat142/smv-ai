@@ -17,4 +17,6 @@
     @include('frontend.footer')
 </div>
 </body>
+<script type="text/javascript" src="/frontend/js/jquery-2.2.4.min.js"></script>
+@yield('after_scripts')
 </html>

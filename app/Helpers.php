@@ -44,6 +44,8 @@ class Helpers
         self::STATUS_INACTIVE => 'Chưa kích hoạt',
     ];
 
+    const LIMIT_POST_IN_LIST = 9;
+
     const INDEX_BLOCK_SERVICE_CATEGORY_ID = 2;
 
     public static function getCategories()

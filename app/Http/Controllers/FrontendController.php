@@ -39,7 +39,7 @@ class FrontendController extends Controller
             return redirect(route('frontend.index'));
         }
         // get current post for category
-        $posts = Post::where('category_id', $cate->id)->where('status', Helpers::STATUS_ACTIVE)->limit(10)->get();
+        $posts = Post::where('category_id', $cate->id)->where('status', Helpers::STATUS_ACTIVE)->limit(Helpers::LIMIT_POST_IN_LIST)->get();
 
         if ($posts->count() == 1) {
             $post = $posts->first();
@@ -73,5 +73,23 @@ class FrontendController extends Controller
     {
         Session::put('locale', $value);
         return redirect('/');
+    }
+
+    public function ajaxLoadMoreCate(Request $request): \Illuminate\Http\JsonResponse
+    {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+        $start = $request->input('start');
+        $categoryId = $request->input('cate');
+
+        if (!$start || !$categoryId) {
+            return response()->json(['error' => 1]);
+        }
+
+        $posts = Post::where('category_id', $categoryId)->where('status', Helpers::STATUS_ACTIVE)->skip($start)->limit(Helpers::LIMIT_POST_IN_LIST)->get();
+
+        $html = view('frontend.partials.category_post', compact('posts'))->render();
+        return $html? response()->json(['html' => $html]) : response()->json(['error' => 1]);
     }
 }
