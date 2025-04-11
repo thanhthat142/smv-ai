@@ -45,7 +45,8 @@ class Category extends Model
         'parent_id',
         'order',
         'status',
-        'image',
+        'vertical_image',
+        'horizontal_image',
         'is_news',
     ];
 

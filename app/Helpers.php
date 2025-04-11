@@ -53,8 +53,14 @@ class Helpers
         return Category::whereNull('parent_id')->where('status', self::STATUS_ACTIVE)->get();
     }
 
-    public static function getImageUrlBySize($path, $w, $h)
+    public static function getImageUrlBySize($content, $w, $h)
     {
+        if ($w > $h) {
+            $path = $content->vertical_image;
+        } else {
+            $path = $content->horizontal_image;
+        }
+
         if (!is_dir(public_path('temp'))) {
             mkdir(public_path('temp'), 0777, true);
         }
@@ -70,6 +76,7 @@ class Helpers
         }
         try {
             $imageManager = Image::read(Storage::disk('uploads')->get($path));
+            $imageManager->resize($w, $h);
             $imageManager->save($existedPath);
             return url($urlPath);
         } catch (\Exception $exception) {
