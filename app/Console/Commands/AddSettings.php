@@ -40,18 +40,27 @@ class AddSettings extends Command
      */
     public function handle()
     {
-        DB::table('settings')->truncate();
+        $totalInsert = 0;
+
+        //DB::table('settings')->truncate();
         foreach (Helpers::SETTING_FIELDS as $key => $type) {
-            DB::table('settings')->insert([
-                'key'         => $key,
-                'name'        => $key,
-                'description' => '',
-                'value'       => '',
-                'field'       => '{"name":"value","label":"Value","type":"'.$type.'"}', //text, textarea
-                'active'      => 1,
-            ]);
+            $typeSetting = '{"name":"value","label":"Value","type":"'.$type.'"}';
+            if ($type == 'upload') {
+                $typeSetting = '{"name":"value","label":"Value","type":"'.$type.'", "withFiles":{"disk":"uploads"}}';
+            }
+            if (DB::table('settings')->where('key', $key)->count() == 0) {
+                DB::table('settings')->insert([
+                    'key'         => $key,
+                    'name'        => $key,
+                    'description' => '',
+                    'value'       => '',
+                    'field'       => $typeSetting,
+                    'active'      => 1,
+                ]);
+                $totalInsert++;
+            }
 
         }
-        $this->line('Inserted '.count(Helpers::SETTING_FIELDS).' records.');
+        $this->line('Inserted '.$totalInsert.' records.');
     }
 }

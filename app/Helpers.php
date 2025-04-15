@@ -30,12 +30,18 @@ class Helpers
         'contact_email' => 'text',
         'contact_address' => 'textarea',
         'company_name' => 'text',
-        'website_logo' => 'text',
+        'website_logo' => 'upload',
 
         'facebook_link' => 'text',
         'twitter_link' => 'text',
         'instagram_link' => 'text',
         'pinterest_link' => 'text',
+        'linkin_link' => 'text',
+
+        'slider_image_1' => 'upload',
+        'slider_image_2' => 'upload',
+        'slider_image_3' => 'upload',
+        'slider_image_4' => 'upload',
     ];
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 2;
@@ -56,9 +62,9 @@ class Helpers
     public static function getImageUrlBySize($content, $w, $h)
     {
         if ($w > $h) {
-            $path = $content->vertical_image;
-        } else {
             $path = $content->horizontal_image;
+        } else {
+            $path = $content->vertical_image;
         }
 
         if (!is_dir(public_path('temp'))) {
@@ -88,6 +94,15 @@ class Helpers
     public  static function  getSettingByKey($key)
     {
         return Setting::get($key) ?? "";
+    }
+
+    public  static function  getSettingFileByKey($key)
+    {
+        $value = Setting::get($key) ?? "";
+        if ($value) {
+            return url('/uploads/'.$value);
+        }
+        return "";
     }
 
     public static function getIndexBlockServiceCate()
@@ -121,6 +136,14 @@ class Helpers
     {
         return Post::where('status', self::STATUS_ACTIVE)
             ->where('is_feature', true)
+            ->orderBy('id', 'desc')
+            ->limit(4)
+            ->get();
+    }
+
+    public  static function getLatestPosts()
+    {
+        return Post::where('status', self::STATUS_ACTIVE)
             ->orderBy('id', 'desc')
             ->limit(4)
             ->get();

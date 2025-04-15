@@ -61,13 +61,13 @@ class PostCrudController extends CrudController
         CRUD::column('author')->label(trans('admin.author'));
 
         CRUD::addColumn([
-            'label' => trans('admin.post_vertical_image') ?? 'Ảnh ngang',
+            'label' => trans('admin.post_vertical_image') ?? 'Ảnh dọc',
             'type' => 'image',
             'name' => 'vertical_image',
             'disk' => 'uploads'
         ]);
         CRUD::addColumn([
-            'label' => trans('admin.post_horizontal_image') ?? 'Ảnh dọc',
+            'label' => trans('admin.post_horizontal_image') ?? 'Ảnh ngang',
             'type' => 'image',
             'name' => 'horizontal_image',
             'disk' => 'uploads'
@@ -149,11 +149,11 @@ class PostCrudController extends CrudController
         CRUD::addField(['name' => 'desc', 'type' => 'textarea', 'label' => trans('admin.description')]);
 
         //CRUD::addField(['name' => 'keywords', 'type' => 'textarea', 'label' => trans('admin.keywords')]);
-        CRUD::addField(['name' => 'vertical_image', 'type' => 'upload', 'label' => trans('admin.post_vertical_image') ?? 'Ảnh ngang', 'withFiles' => [
+        CRUD::addField(['name' => 'vertical_image', 'type' => 'upload', 'label' => trans('admin.post_vertical_image') ?? 'Ảnh dọc', 'withFiles' => [
             'disk' => 'uploads', // the disk where file will be stored
         ]]);
 
-        CRUD::addField(['name' => 'horizontal_image', 'type' => 'upload', 'label' => trans('admin.post_horizontal_image') ?? 'Ảnh dọc', 'withFiles' => [
+        CRUD::addField(['name' => 'horizontal_image', 'type' => 'upload', 'label' => trans('admin.post_horizontal_image') ?? 'Ảnh ngang', 'withFiles' => [
             'disk' => 'uploads', // the disk where file will be stored
         ]]);
 

@@ -48,8 +48,8 @@ class CategoryCrudController extends CrudController
         CRUD::column('keywords')->type('textarea')->label(trans('admin.description'));
         CRUD::column('order')->type('number')->label(trans('admin.order'));
         CRUD::column('status')->type('select_from_array')->options(Helpers::GENERAL_STATUSES)->label(trans('admin.status'));
-        CRUD::column('vertical_image')->type('image')->label(trans('admin.category_vertical_image') ?? 'Ảnh ngang')->disk('uploads');
-        CRUD::column('horizontal_image')->type('image')->label(trans('admin.category_horizontal_image') ?? 'Ảnh dọc')->disk('uploads');
+        CRUD::column('vertical_image')->type('image')->label(trans('admin.category_vertical_image') ?? 'Ảnh dọc')->disk('uploads');
+        CRUD::column('horizontal_image')->type('image')->label(trans('admin.category_horizontal_image') ?? 'Ảnh ngang')->disk('uploads');
         CRUD::column('is_news')->type('boolean')->label(trans('admin.is_news'));
     }
 
@@ -85,8 +85,8 @@ class CategoryCrudController extends CrudController
             ->type('select_from_array')
             ->options(Helpers::GENERAL_STATUSES)
             ->label(trans('admin.status'));
-        CRUD::addField(['name' => 'vertical_image', 'type' => 'upload', 'label' => trans('admin.category_vertical_image') ?? 'Ảnh ngang', 'withFiles' => ['disk' => 'uploads']]);
-        CRUD::addField(['name' => 'horizontal_image', 'type' => 'upload', 'label' => trans('admin.category_horizontal_image') ?? 'Ảnh dọc', 'withFiles' => ['disk' => 'uploads']]);
+        CRUD::addField(['name' => 'vertical_image', 'type' => 'upload', 'label' => trans('admin.category_vertical_image') ?? 'Ảnh dọc', 'withFiles' => ['disk' => 'uploads']]);
+        CRUD::addField(['name' => 'horizontal_image', 'type' => 'upload', 'label' => trans('admin.category_horizontal_image') ?? 'Ảnh ngang', 'withFiles' => ['disk' => 'uploads']]);
 
         CRUD::field('is_news')->type('boolean')->label(trans('admin.is_news'));
     }

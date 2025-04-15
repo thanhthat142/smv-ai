@@ -24,20 +24,23 @@
                         {!! $post->content !!}
                     </div>
 
-                    <div class="news-tags">
-                        <span>{{ trans('frontend.post_tag') }}:</span>
-                        <a href="/frontend/list.html">#dulich</a>
-                        <a href="/frontend/list.html">#Lao</a>
-                        <a href="/frontend/list.html">#MekongLink</a>
-                    </div>
+                    @if ($post->tags->count() > 0)
+                        <div class="news-tags">
+                            <span>{{ trans('frontend.post_tag') ?? 'Các nhãn dán' }}:</span>
+                            @foreach ($post->tags as $tag)
+                                <a href="{{ route('frontend.tag', $tag->slug) }}">#{{ $tag->name }}</a>
+                            @endforeach
 
-                    <div class="news-share">
-                        <span>Share:</span>
-                        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
+                        </div>
+                    @endif
+
+{{--                    <div class="news-share">--}}
+{{--                        <span>Share:</span>--}}
+{{--                        <a href="{{ \App\Helpers::getSettingByKey('facebook_link') }}" class="facebook"><i class="fab fa-facebook-f"></i></a>--}}
+{{--                        <a href="{{ \App\Helpers::getSettingByKey('twitter_link') }}" class="twitter"><i class="fab fa-twitter"></i></a>--}}
+{{--                        <a href="{{ \App\Helpers::getSettingByKey('linkin_link') }}" class="linkedin"><i class="fab fa-linkedin-in"></i></a>--}}
+{{--                        <a href="{{ \App\Helpers::getSettingByKey('instagram_link') }}" class="instagram"><i class="fab fa-instagram"></i></a>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </section>

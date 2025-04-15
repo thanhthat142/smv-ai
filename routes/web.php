@@ -24,6 +24,8 @@ Route::post('/save-contact', [FrontendController::class, 'saveContact'])
 Route::post('/ajaxLoadMoreCate', 'App\Http\Controllers\FrontendController@ajaxLoadMoreCate')->name('frontend.load_more_cate');
 
 Route::get('set-lang/{value}', [FrontendController::class, 'setLang'])->name('frontend.set-lang');
+Route::get('search', [FrontendController::class, 'search'])->name('frontend.search');
+Route::get('tag/{value}', [FrontendController::class, 'tag'])->name('frontend.tag');
 
 // Route cho bài viết (post) với đuôi .html
 Route::get('/{postSlug}.html', [FrontendController::class, 'post'])
