@@ -24,7 +24,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "predis/predis": "^2.2",
-        "spatie/laravel-translatable": "^6.9"
+        "spatie/laravel-translatable": "^6.11"
     },
     "require-dev": {
         "backpack/generators": "^4.0",
