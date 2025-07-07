@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>{{ trans('frontend.home') }}</title>
-    <link rel="stylesheet" href="/frontend/css/all.min.css">
     <script type="module" crossorigin src="/frontend/assets/main-Cx57V1_U.js"></script>
     <link rel="stylesheet" crossorigin href="/frontend/assets/main-DWiscHl-.css">
     <link rel="icon" type="image/png" href="{{ asset('frontend/assets/favicon.png') }}">
@@ -17,7 +17,8 @@
     @include('frontend.header')
     @yield('content')
     @include('frontend.footer')
-    @include('frontend.partials.chatbot')
+    @yield('chatbot')
+    {{-- @include('frontend.partials.chatbot-test') --}}
 </div>
 </body>
 <script type="text/javascript" src="/frontend/js/jquery-2.2.4.min.js"></script>

@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', '\App\Http\Controllers\FrontendController@index')->name('frontend.index');
 Route::get('/contact', '\App\Http\Controllers\FrontendController@contact')->name('frontend.contact');
+Route::get('/chatbot', [FrontendController::class, 'chatbot'])
+    ->name('frontend.chatbot');
 //Route::get('/{slug}', '\App\Http\Controllers\FrontendController@cate')->name('frontend.cate');
+// Route cho trang đăng ký gói cước
+Route::get('/register-package', [FrontendController::class, 'registerPackage'])
+    ->name('frontend.register_package');
 
 Route::post('/save-contact', [FrontendController::class, 'saveContact'])
     ->name('frontend.save_contact');
@@ -34,7 +39,3 @@ Route::get('/{postSlug}.html', [FrontendController::class, 'post'])
 // Route cho danh mục (category)
 Route::get('/{categorySlug}', [FrontendController::class, 'cate'])
     ->name('frontend.cate');
-
-
-
-
