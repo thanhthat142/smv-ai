@@ -8,6 +8,7 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="{{ route('frontend.index') }}" class="active">{{ trans('frontend.home') }}</a></li>
+                <li><a href="{{ route('frontend.chatbot') }}">{{ trans('frontend.chatbot') }}</a></li>
 
                 @foreach (\App\Helpers::getCategories() as $cate)
                     @if ($cate->children()->count() > 0)
@@ -37,6 +38,7 @@
                     @endif
                 @endforeach
                 <li><a href="{{ route('frontend.contact') }}">{{ trans('frontend.contact') }}</a></li>
+                <li><a href="{{ route('frontend.register_package') }}">{{ trans('frontend.register_package') }}</a></li>
             </ul>
         </nav>
         <div class="right-header">
