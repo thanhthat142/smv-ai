@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-left">
-            <img src="/frontend/assets/logo2-COvJQh2e.jpg" alt="Mekong Link" class="footer-logo lazyload">
+            <img src="{{ \App\Helpers::getSettingFileByKey('footer_website_logo') }}" alt="{{ \App\Helpers::getSettingByKey('website_name') }}" class="footer-logo lazyload">
         </div>
         <div class="footer-center">
             <h2>Menu</h2>

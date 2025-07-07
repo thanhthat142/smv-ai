@@ -42,7 +42,7 @@ class AddSettings extends Command
     {
         $totalInsert = 0;
 
-        //DB::table('settings')->truncate();
+        DB::table('settings')->truncate();
         foreach (Helpers::SETTING_FIELDS as $key => $type) {
             $typeSetting = '{"name":"value","label":"Value","type":"'.$type.'"}';
             if ($type == 'upload') {

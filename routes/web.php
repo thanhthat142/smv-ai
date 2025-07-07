@@ -39,4 +39,3 @@ Route::get('/{postSlug}.html', [FrontendController::class, 'post'])
 // Route cho danh mục (category)
 Route::get('/{categorySlug}', [FrontendController::class, 'cate'])
     ->name('frontend.cate');
-

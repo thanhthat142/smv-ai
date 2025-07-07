@@ -8,6 +8,7 @@ use App\Models\Post;
 use Backpack\Settings\app\Models\Setting;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\Log;
 use function PHPUnit\Framework\directoryExists;
 
 class Helpers
@@ -42,6 +43,7 @@ class Helpers
         'slider_image_2' => 'upload',
         'slider_image_3' => 'upload',
         'slider_image_4' => 'upload',
+        'footer_website_logo' => 'upload',
     ];
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 2;
@@ -67,6 +69,8 @@ class Helpers
             $path = $content->vertical_image;
         }
 
+        Log::debug("Original image path: " . $path);
+
         if (!is_dir(public_path('temp'))) {
             mkdir(public_path('temp'), 0777, true);
         }
@@ -80,7 +84,7 @@ class Helpers
         if (file_exists($existedPath)) {
             return url($urlPath);
         }
-        try {
+        try {   
             $imageManager = Image::read(Storage::disk('uploads')->get($path));
             $imageManager->resize($w, $h);
             $imageManager->save($existedPath);

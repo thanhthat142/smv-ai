@@ -7,8 +7,8 @@
         </div>
         <nav class="nav">
             <ul class="nav-list">
-                <li><a href="{{ route('frontend.index') }}" class="active">{{ trans('frontend.home') }}</a></li>
-                <li><a href="{{ route('frontend.chatbot') }}">{{ trans('frontend.chatbot') }}</a></li>
+                <li><a href="{{ route('frontend.index') }}" class="{{ request()->routeIs('frontend.index') ? 'active' : '' }}">{{ trans('frontend.home') }}</a></li>
+                <li><a href="{{ route('frontend.chatbot') }}" class="{{ request()->routeIs('frontend.chatbot') ? 'active' : '' }}">{{ trans('frontend.chatbot') }}</a></li>
 
                 @foreach (\App\Helpers::getCategories() as $cate)
                     @if ($cate->children()->count() > 0)
@@ -37,8 +37,8 @@
                         <li><a href="{{ route('frontend.cate', $cate->slug) }}">{{ $cate->name }}</a></li>
                     @endif
                 @endforeach
-                <li><a href="{{ route('frontend.contact') }}">{{ trans('frontend.contact') }}</a></li>
-                <li><a href="{{ route('frontend.register_package') }}">{{ trans('frontend.register_package') }}</a></li>
+                <li><a href="{{ route('frontend.register_package') }}" class="{{ request()->routeIs('frontend.register_package') ? 'active' : '' }}">{{ trans('frontend.register_package') }}</a></li>
+                <li><a href="{{ route('frontend.contact') }}" class="{{ request()->routeIs('frontend.contact') ? 'active' : '' }}">{{ trans('frontend.contact') }}</a></li>
             </ul>
         </nav>
         <div class="right-header">

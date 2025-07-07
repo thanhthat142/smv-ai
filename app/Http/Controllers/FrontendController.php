@@ -130,4 +130,20 @@ class FrontendController extends Controller
         $html = view('frontend.partials.category_post', compact('posts'))->render();
         return $html? response()->json(['html' => $html]) : response()->json(['error' => 1]);
     }
+
+    public function registerPackage()
+    {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+        return view('frontend.register_package'); 
+    }
+
+    public function chatbot()
+    {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+        return view('frontend.chatbot');
+    }
 }

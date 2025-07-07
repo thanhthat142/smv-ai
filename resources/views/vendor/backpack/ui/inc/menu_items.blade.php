@@ -14,9 +14,7 @@
     <x-backpack::menu-dropdown-item title="Permissions" icon="la la-key" :link="backpack_url('permission')" />
 </x-backpack::menu-dropdown>
 
-
 <x-backpack::menu-item title='Settings' icon='la la-cog' :link="backpack_url('setting')" />
 <x-backpack::menu-item title="{{trans('admin.translation_manager')}}" icon="la la-stream" :link="backpack_url('translation-manager')" />
 
 
-<x-backpack::menu-item title="Categories" icon="la la-question" :link="backpack_url('category')" />

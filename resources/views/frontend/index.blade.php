@@ -1,6 +1,7 @@
 @extends('frontend.layout')
 
 @section('content')
+
     @include('frontend.slider')
     <main>
         @if ($blockServiceCate = \App\Helpers::getIndexBlockServiceCate())
@@ -146,7 +147,7 @@
                 <div class="contact-form">
                     <h2>{{ trans('frontend.contact_form_name') }}</h2>
                     <form method="POST" action="{{ route('frontend.save_contact') }}">
-                        {{ csrf_field() }}
+                        @csrf
                         <input type="text" name="name" placeholder="{{ trans('frontend.contact_form_input_name') }}">
                         <input type="email" name="email" placeholder="{{ trans('frontend.contact_form_input_email') }}">
                         <input type="tel" name="phone" placeholder="{{ trans('frontend.contact_form_input_phone') }}">
@@ -157,4 +158,8 @@
             </div>
         </section>
     </main>
+@endsection
+
+@section('chatbot')
+    @include('frontend.partials.mini-chatbot')
 @endsection
