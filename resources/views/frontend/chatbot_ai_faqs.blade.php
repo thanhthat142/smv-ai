@@ -383,7 +383,16 @@
                 this.threads = { faqs: [], tuVan: [], chinhSach: [] };
                 this.activeThread = 'faqs'; // Default thread
                 this.currentLang = this.detectLanguage();
+                this.sessionId = null;
                 this.init();
+            }
+
+            generateSessionId() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
             }
 
             detectLanguage() {
@@ -460,6 +469,9 @@
                 const arr = this.threads[this.activeThread];
 
                 if (arr.length === 0) {
+                    this.sessionId = this.generateSessionId();
+                    //console.log('New session created:', this.sessionId);
+                    
                     const welcomeMessage = this.getText('welcome');
                     c.append(`
                         <div class="flex items-start space-x-3 slide-up">
@@ -526,6 +538,11 @@
             sendMessage() {
                 const message = $('#messageInput').val().trim();
                 if (!message) return;
+
+                if (!this.sessionId) {
+                    this.sessionId = this.generateSessionId();
+                    //console.log('SessionId created during send:', this.sessionId);
+                }
                 this.threads[this.activeThread].push({ from: 'user', text: message });
                 this.addUserMessage(message, true);
                 $('#messageInput').val('').prop('disabled', true);
@@ -700,16 +717,23 @@
             }
 
             simulateBotResponse(userMessage) {
-                 const urlMap = {
+                const urlMap = {
                     faqs: 'https://408b-14-231-188-210.ngrok-free.app/webhook/faqs',
                     tuVan: 'https://408b-14-231-188-210.ngrok-free.app/webhook/qs',
                     chinhSach: 'https://408b-14-231-188-210.ngrok-free.app/webhook/policies'
                 };
                 const url = urlMap[this.activeThread];
+
+                const payload = {
+                    message: userMessage,
+                    sessionId: this.sessionId
+                };
+                //console.log('Sending to webhook:', payload);
+
                 fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" },
-                    body: JSON.stringify({ message: userMessage }),
+                    body: JSON.stringify(payload),
                 })
                 .then(async response => {
                     const contentType = response.headers.get("content-type");
