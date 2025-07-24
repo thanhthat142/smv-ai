@@ -8,7 +8,7 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="{{ route('frontend.index') }}" class="{{ request()->routeIs('frontend.index') ? 'active' : '' }}">{{ trans('frontend.home') }}</a></li>
-                <li><a href="{{ route('frontend.chatbot') }}" class="{{ request()->routeIs('frontend.chatbot') ? 'active' : '' }}">{{ trans('frontend.chatbot') }}</a></li>
+                {{-- <li><a href="{{ route('frontend.chatbot') }}" class="{{ request()->routeIs('frontend.chatbot') ? 'active' : '' }}">{{ trans('frontend.chatbot') }}</a></li> --}}
 
                 @foreach (\App\Helpers::getCategories() as $cate)
                     @if ($cate->children()->count() > 0)

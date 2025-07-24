@@ -14,11 +14,10 @@
 </head>
 <body>
 <div id="app">
-    @include('frontend.header')
+    {{-- @include('frontend.header') --}}
     @yield('content')
-    @include('frontend.footer')
+    {{-- @include('frontend.footer') --}}
     @yield('chatbot')
-    {{-- @include('frontend.partials.chatbot-test') --}}
 </div>
 </body>
 <script type="text/javascript" src="/frontend/js/jquery-2.2.4.min.js"></script>

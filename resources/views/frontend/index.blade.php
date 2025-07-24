@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('frontend.slider')
+    {{-- @include('frontend.slider')
     <main>
         @if ($blockServiceCate = \App\Helpers::getIndexBlockServiceCate())
         <section class="services block">
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </section>
-    </main>
+    </main> --}}
 @endsection
 
 @section('chatbot')

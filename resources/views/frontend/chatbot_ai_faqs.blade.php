@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnitelBot Sales</title>
+    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/favicon.png') }}">
+    <!-- Tailwind CSS -->
+    <script src="{{ asset('frontend/js/tailwind.js') }}"></script>
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ asset('frontend/assets/icons/fontawesome/css/all.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    <!-- jQuery -->
+    <script src="{{ asset('frontend/js/jquery.js') }}"></script>
+    <style>
+    .quick-action.active {
+        background-color: #F68B1F; /* Màu cam (orange-600) */
+        color: white;
+    }
+
+    .quick-action.active:hover {
+        background-color: #e0612a; /* Màu cam đậm hơn (orange-700) */
+    }
+
+    .quick-action {
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .chat-widget-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999999;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    #chatImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 10;
+    }
+
+    #chatIcon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    #chatWindow {
+        width: 444px;
+        height: 666px;
+    }
+
+    @media (min-width: 640px) {
+        #chatWindow {
+            width: 480px; 
+            height: 700px; 
+        }
+    }
+
+    .suggestion-btn {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        transform: translateY(0);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        word-break: break-word;
+        white-space: normal;
+        display: inline-block;
+        margin-bottom: 6px;
+    }
+    
+    .suggestion-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #FFEDD5;
+    }
+    
+    .suggestion-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .copy-btn {
+        transition: opacity 0.2s ease, background-color 0.2s ease;
+        opacity: 1; /* Luôn hiển thị thay vì opacity: 0 */
+        padding: 10px 12px !important; 
+    }
+
+    .copy-btn:hover {
+        background-color: #f3f4f6 !important;
+    }
+
+    .copy-btn i {
+        color: #9ca3af; /* Màu xám giống với thời gian */
+        font-size: 15px;
+    }
+
+    .copy-btn:hover i {
+        color: #6b7280; /* Màu xám đậm hơn khi hover */
+    }
+        
+    .chat-bubble {
+        animation: bounce-in 0.3s ease-out;
+    }
+        
+    @keyframes bounce-in {
+        0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+        
+    .slide-up {
+        animation: slide-up 0.3s ease-out;
+    }
+        
+    @keyframes slide-up {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+        
+    .chat-scroll::-webkit-scrollbar {
+        width: 4px;
+    }
+        
+        .chat-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 2px;
+        }
+        
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 2px;
+        }
+        
+        .chat-scroll::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+        
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Custom scrollbar for textarea */
+        #messageInput::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        #messageInput::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        #messageInput::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+        
+        #messageInput::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Hide scrollbar for Firefox */
+        #messageInput {
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db transparent;
+        }
+
+        .suggestion-btn:disabled {
+            pointer-events: none;
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+        }
+
+        .suggestion-btn:disabled:hover {
+            background-color: #FFF7ED !important;
+            transform: none !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        @media (max-width: 640px) {
+            .chat-widget-container {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Chat Widget Container - Fixed Position -->
+    <div id="chatWidget" class="chat-widget-container">
+        <!-- Chat Window (Hidden by default) -->
+        <div id="chatWindow" class="hidden slide-up bg-white rounded-2xl shadow-2xl overflow-hidden mb-4 flex flex-col">
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center animate-pulse">
+                        <i class="fas fa-robot text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">UnitelBot Sales</h3>
+                        <p class="text-orange-100 text-sm flex items-center online-status">
+                            <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                            Sẵn sàng hỗ trợ
+                        </p>
+                    </div>
+                </div>
+                <div class="flex space-x-1">
+                    <button id="resetChat" class="p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition-all duration-200 transform hover:scale-110">
+                        <i class="fas fa-refresh text-white text-sm"></i>
+                    </button>
+                    <button id="closeChat" class="p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition-all duration-200 transform hover:scale-110">
+                        <i class="fas fa-times text-white text-sm"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Chat Messages -->
+            <div id="chatContainer" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-gray-50 to-white chat-scroll min-h-0">
+                <!-- Welcome Message -->
+                {{-- <div class="flex items-start space-x-3 slide-up">
+                    <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                        <i class="fas fa-robot text-white text-xs"></i>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[300px] border border-gray-100">
+                        <p class="text-gray-800 text-sm leading-relaxed">👋 Chào bạn! Mình là trợ lý AI giải đáp thắc mắc về chính sách dịch vụ của Unitel. Mình có thể giúp gì cho bạn hôm nay?</p>
+                        <span class="text-xs text-gray-400 mt-2">Vừa xong</span>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 slide-up">
+                    <div class="w-8 h-8"></div>
+                    <div class="flex gap-2 mt-2">
+                        <button class="quick-action px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold hover:bg-orange-200 transition-all duration-200">
+                            Di động
+                        </button>
+                        <button class="quick-action px-4 py-2 bg-green-100 text-green-700 rounded-full text-xs font-semibold hover:bg-green-200 transition-all duration-200">
+                            FTTH
+                        </button>
+                        <button class="quick-action px-4 py-2 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold hover:bg-yellow-200 transition-all duration-200">
+                            Umoney
+                        </button>
+                        <button class="quick-action px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold hover:bg-purple-200 transition-all duration-200">
+                            LaoTV
+                        </button>
+                    </div>
+                </div> --}}
+            </div>
+            <!-- Typing Indicator (Hidden by default) -->
+            <div id="typingIndicator" class="flex-shrink-0 px-4 pb-2 bg-gradient-to-b from-gray-50 to-white hidden">
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center shadow-md">
+                        <i class="fas fa-robot text-white text-xs"></i>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100">
+                        <div class="flex space-x-1">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Chat Input -->
+            <div class="flex-shrink-0 p-4 bg-white border-t border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <!-- Message Input -->
+                    <div class="flex-1 relative">
+                        <textarea 
+                            id="messageInput" 
+                            placeholder="Nhập tin nhắn của bạn..." 
+                            class="w-full p-3 pr-14 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none transition-all duration-200 min-h-[44px] max-h-[120px]"
+                            maxlength="500"
+                            rows="1"
+                        ></textarea>
+                        <button id="emojiButton" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                        </button>
+                    </div>
+                    
+                    <!-- Send Button -->
+                    <button id="sendButton" class="w-11 h-11 flex items-center justify-center bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl hover:from-orange-600 hover:to-orange-700 transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="flex flex-wrap gap-2 mt-3">
+                    <button class="quick-action px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs hover:bg-gray-200 transition-all duration-200 transform hover:scale-105" data-thread="faqs">
+                        <i class="fas fa-question-circle mr-1"></i>
+                        FAQs
+                    </button>
+                    {{-- <button class="quick-action px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs hover:bg-gray-200 transition-all duration-200 transform hover:scale-105" data-thread="tuVan">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Tư vấn
+                    </button> --}}
+                </div>
+                <!-- Disclaimer Text -->
+                <div class="mt-3 text-center">
+                    <p class="text-xs text-gray-400 disclaimer-text">Information is for reference only, provided by AI Agent.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Chat Button -->
+        <button id="chatToggle" class="chat-bubble w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+            <img id="chatImage" src="{{ asset('frontend/assets/avatar_AIChatbt.png') }}" class="w-8 h-8 object-contain relative z-10" alt="Chat">
+            <i id="chatIcon" class="fas fa-times text-xl relative z-10 hidden"></i>
+            <!-- Notification Badge -->
+            <span id="notificationBadge" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold shadow-lg animate-pulse hidden">0</span>
+        </button>
+    </div>
+
+    <!-- JavaScript for Chat Functionality -->
+    <script>
+        const languages = {
+            vi: {
+                welcome: "👋 Chào bạn! Đây là kênh FAQs, mình sẽ giúp bạn giải đáp các câu hỏi thường gặp.",
+                placeholder: "Nhập tin nhắn của bạn...",
+                online: "Sẵn sàng hỗ trợ",
+                copy: "Sao chép tin nhắn",
+                copied: "Đã copy!",
+                disclaimer: "Information is for reference only, provided by AI Agent.",
+                faqs: "FAQs",
+                register: "Đăng ký ngay",
+                error: "Đã xảy ra lỗi kết nối.",
+                noResponse: "Không có phản hồi từ máy chủ.",
+                invalidResponse: "Phản hồi không đúng định dạng JSON."
+            },
+            en: {
+                welcome: "👋 Hello! This is the FAQs channel. I will help you answer frequently asked questions.",
+                placeholder: "Enter your message...",
+                online: "Online",
+                copy: "Copy this message",
+                copied: "Copied!",
+                disclaimer: "Information is for reference only, provided by AI Agent.",
+                faqs: "FAQs",
+                register: "Register",
+                error: "A connection error occurred.",
+                noResponse: "No response from server.",
+                invalidResponse: "Response is not in correct JSON format."
+            },
+            lo: {
+                welcome: "👋 ສະບາຍດີ! ນີ້ແມ່ນຄຳຖາມທີ່ສ່ວນຫຼາຍຈະຖືກຖາມຫຼາຍຄັ້ງ, ຂ້ອຍຈະຊ່ວຍເຈົ້າຕອບຄຳຖາມທີ່ຄົນສ່ວນຫຼາຍນິຍົມຖາມ.",
+                placeholder: "ພິມຂໍ້ຄວາມ ...",
+                online: "ພ້ອມຊ່ວຍເຫຼືອ",
+                copy: "ຄັດລອກຂໍ້ຄວາມ",
+                copied: "ຄັດລອກແລ້ວ!",
+                disclaimer: "ຂໍ້ມູນນີ້ແມ່ນສຳລັບການອ້າງອີງເທົ່ານັ້ນ, ສະໜອງໂດຍ AI Agent.",
+                faqs: "ຄຳຖາມທີ່ນິຍົມຖາມ",
+                register: "ລົງທະບຽນ",
+                error: "ເກີດຂໍ້ຜິດພາດໃນການເຊື່ອມຕໍ່.",
+                noResponse: "ບໍ່ມີການຕອບກັບຈາກເຊີເວີ.",
+                invalidResponse: "ການຕອບກັບບໍ່ຖືກຕ້ອງໃນຮູບແບບ JSON."
+            }
+        };
+
+        class ChatWidget {
+            constructor() {
+                this.isOpen = false;
+                this.messageCount = { faqs: 0, tuVan: 0, chinhSach: 0 };
+                this.threads = { faqs: [], tuVan: [], chinhSach: [] };
+                this.activeThread = 'faqs'; // Default thread
+                this.currentLang = this.detectLanguage();
+                this.init();
+            }
+
+            detectLanguage() {
+                const browserLang = navigator.language || navigator.userLanguage || 'vi';
+                
+                if (browserLang.startsWith('vi')) return 'vi';
+                if (browserLang.startsWith('lo')) return 'lo';
+                if (browserLang.startsWith('en')) return 'en';
+                
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (timezone.includes('Vientiane')) return 'lo';
+                if (timezone.includes('Ho_Chi_Minh')) return 'vi';
+                
+                return 'vi';
+            }
+
+            getText(key) {
+                return languages[this.currentLang][key] || languages.vi[key];
+            }
+
+            updateUILanguage() {
+                $('#messageInput').attr('placeholder', this.getText('placeholder'));
+                $('.disclaimer-text').text(this.getText('disclaimer'));
+                $('.online-status').text(this.getText('online'));
+                
+                $('.quick-action[data-thread="faqs"]').html(`
+                    <i class="fas fa-question-circle mr-1"></i>
+                    ${this.getText('faqs')}
+                `);
+            }
+
+            init() {
+                this.bindEvents();
+                this.updateUILanguage();
+                this.switchThread('faqs'); // Render default thread
+            }
+
+            bindEvents() {
+                $('#chatToggle').click(() => this.toggleChat());
+                $('#closeChat').click(() => this.closeChat());
+                $('#resetChat').click(() => this.resetChat());
+                $('#sendButton').click(() => this.sendMessage());
+                $('#messageInput').on('keypress', (e) => {
+                    if (e.which === 13 && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+                $('#messageInput').on('input', () => {
+                    this.autoResizeTextarea();
+                    const message = $('#messageInput').val().trim();
+                    $('#sendButton').prop('disabled', message === '');
+                });
+                $('.quick-action').click((e) => {
+                    const thread = $(e.currentTarget).data('thread');
+                    this.switchThread(thread);
+                });
+            }
+
+            switchThread(thread) {
+                if (!thread) return;
+                this.threads[thread] = [];
+                this.activeThread = thread;
+                $('.quick-action').removeClass('active');
+                $(`.quick-action[data-thread="${thread}"]`).addClass('active');
+                this.renderThreads();
+                $('#messageInput').val('');
+                $('#messageInput').focus();
+            }
+
+            renderThreads() {
+                const c = $('#chatContainer');
+                c.empty();
+                const arr = this.threads[this.activeThread];
+
+                if (arr.length === 0) {
+                    const welcomeMessage = this.getText('welcome');
+                    c.append(`
+                        <div class="flex items-start space-x-3 slide-up">
+                            <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                                <i class="fas fa-robot text-white text-xs"></i>
+                            </div>
+                            <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[300px] border border-gray-100">
+                                <p class="text-gray-800 text-sm leading-relaxed">${welcomeMessage}</p>
+                                <span class="text-xs text-gray-400 mt-2">${this.getCurrentTime()}</span>
+                            </div>
+                        </div>
+                    `);
+                }
+
+                arr.forEach(item => {
+                    if (item.from === 'user') this.addUserMessage(item.text, false);
+                    else this.addBotMessage(item.text, false);
+                });
+                this.scrollToBottom();
+            }
+
+            toggleChat() {
+                if (this.isOpen) {
+                    this.closeChat();
+                } else {
+                    this.openChat();
+                }
+            }
+
+            openChat() {
+                $('#chatWindow').removeClass('hidden').addClass('slide-up');
+                $('#chatImage').addClass('hidden');
+                $('#chatIcon').removeClass('hidden');
+                $('#notificationBadge').addClass('hidden');
+                this.isOpen = true;
+                
+                setTimeout(() => {
+                    $('#messageInput').focus();
+                }, 300);
+
+                this.scrollToBottom();
+            }
+
+            closeChat() {
+                $('#chatWindow').addClass('hidden').removeClass('slide-up');
+                $('#chatIcon').addClass('hidden');
+                $('#chatImage').removeClass('hidden');
+                this.isOpen = false;
+                
+                // Show notification if there are unread messages
+                if (this.messageCount > 0) {
+                    $('#notificationBadge').removeClass('hidden');
+                }
+            }
+
+            resetChat() {
+                this.threads[this.activeThread] = [];
+                this.renderThreads();
+                $('#messageInput').val('');
+                $('#messageInput').focus();
+            }
+
+
+            sendMessage() {
+                const message = $('#messageInput').val().trim();
+                if (!message) return;
+                this.threads[this.activeThread].push({ from: 'user', text: message });
+                this.addUserMessage(message, true);
+                $('#messageInput').val('').prop('disabled', true);
+                $('#sendButton').prop('disabled', true);
+                this.resetTextareaHeight();
+                this.showTypingIndicator();
+                this.simulateBotResponse(message);
+            }
+
+            autoResizeTextarea() {
+                const textarea = $('#messageInput')[0];
+                if (!textarea) return;
+                
+                // Reset height to auto to get the correct scrollHeight
+                textarea.style.height = 'auto';
+                
+                // Set height based on scrollHeight, with min and max constraints
+                const minHeight = 44; 
+                const maxHeight = 120;
+                const scrollHeight = textarea.scrollHeight;
+                
+                if (scrollHeight <= maxHeight) {
+                    textarea.style.height = Math.max(minHeight, scrollHeight) + 'px';
+                } else {
+                    textarea.style.height = maxHeight + 'px';
+                }
+            }
+
+            resetTextareaHeight() {
+                const textarea = $('#messageInput')[0];
+                if (textarea) {
+                    textarea.style.height = '44px'; // Reset to min height
+                }
+            }
+
+            addUserMessage(message, store) {
+                const time = this.getCurrentTime();
+                const userMessage = `
+                    <div class="flex items-start space-x-3 justify-end slide-up">
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-2xl rounded-tr-sm shadow-md max-w-[300px]">
+                            <p class="text-sm leading-relaxed break-words">${this.escapeHtml(message)}</p>
+                            <span class="text-xs text-orange-100 mt-2">${time}</span>
+                        </div>
+                        <div class="w-8 h-8 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                            <i class="fas fa-user text-white text-xs"></i>
+                        </div>
+                    </div>
+                `;
+                
+                $('#chatContainer').append(userMessage);
+                if (store) this.scrollToBottom();
+            }
+
+            addBotMessage(message) {
+                const time = this.getCurrentTime();
+                let text = typeof message === 'string' ? message : (message?.text || '');
+                let suggestions = typeof message === 'object' && message.suggestions ? message.suggestions : [];
+                let lang = typeof message === 'object' ? message.lang : null;
+
+                function detectLang(text) {
+                    if (/[ກ-ໝ]/.test(text)) return "lo"; 
+                    if (/[a-zA-Z]/.test(text) && /you|how|help|please/i.test(text)) return "en";
+                    return "vi";
+                }
+                if (!lang || lang === "vi") {
+                    lang = detectLang(text);
+                }
+
+                const hasLink = text.includes("https://look.tnet.vn/register-package");
+                const cleanText = text
+                    .replace("https://look.tnet.vn/register-package", "")
+                    .replace(/\[\]\(https:\/\/look\.tnet\.vn\/register-package\)/g, "")
+                    .replace(/\[.*?\]\(https:\/\/look\.tnet\.vn\/register-package\)/g, "")
+                    .trim();
+
+                const formattedText = cleanText
+                    .replace(/ - /g, "<br>")
+                    .replace(/\n/g, "<br>")
+                    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+                const messageId = 'message_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+                // Tạo khối tin nhắn bot
+                const botMessage = `
+                    <div class="flex items-start space-x-3 slide-up">
+                        <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                            <i class="fas fa-robot text-white text-xs"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[300px] border border-gray-100 relative group">
+                            <p id="${messageId}" class="text-gray-800 text-sm leading-relaxed break-words">${formattedText}</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-xs text-gray-400">${time}</span>
+                                <button onclick="copyMessage('${messageId}')" class="copy-btn opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded transition-all duration-200" title="${this.getText('copy')}">
+                                    <i class="fas fa-copy text-gray-400 hover:text-gray-600 text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $('#chatContainer').append(botMessage);
+
+                if (suggestions && suggestions.length > 0) {
+                    const suggestionsHtml = `
+                        <div class="flex items-start space-x-3 slide-up mt-2">
+                            <div class="w-8 h-8"></div>
+                            <div class="flex flex-wrap gap-2 max-w-[300px]">
+                                ${suggestions.map((suggestion, index) => `
+                                    <button class="suggestion-btn px-3 py-2 bg-orange-50 text-orange-700 rounded-lg text-sm hover:bg-orange-100 transition-all duration-200 border border-orange-200 text-left" data-suggestion="${suggestion}" data-index="${index}">
+                                        ${suggestion}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    $('#chatContainer').append(suggestionsHtml);
+
+                    // Sử dụng event delegation thay vì bind trực tiếp
+                    $(document).off('click', '.suggestion-btn').on('click', '.suggestion-btn', (e) => {
+                        // Kiểm tra nếu button bị disabled thì không làm gì
+                        if ($(e.currentTarget).prop('disabled')) {
+                            return false;
+                        }
+                        
+                        const suggestionText = $(e.currentTarget).text().trim();
+                        $('#messageInput').val(suggestionText);
+                        window.chatWidget.sendMessage();
+                    });
+                }
+
+                // Nếu có link, thêm nút đăng ký bên dưới
+                if (hasLink) {
+                    const buttonLabels = {
+                        vi: "Đăng ký ngay",
+                        lo: "ລົງທະບຽນ"
+                    };
+                    const label = buttonLabels[lang] || buttonLabels.vi;
+                    const buttonHtml = `
+                        <div class="flex items-start space-x-3 slide-up">
+                            <div class="w-8 h-8"></div>
+                            <div>
+                                <button onclick="window.open('https://look.tnet.vn/register-package', '_blank')"
+                                    class="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-pink-500 to-red-500 hover:from-red-500 hover:to-pink-500 text-white font-semibold rounded-full shadow-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                                    style="margin: 10px 0 5px 0;">
+                                    <i class="fas fa-paper-plane animate-pulse"></i>
+                                    <span>${label}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    $('#chatContainer').append(buttonHtml);
+                }
+
+                this.scrollToBottom();
+
+                if (!this.isOpen) {
+                    this.messageCount++;
+                    $('#notificationBadge').text(this.messageCount).removeClass('hidden');
+                }
+            }
+
+            showTypingIndicator() {
+                $('#typingIndicator').removeClass('hidden');
+                // Disable tất cả suggestion buttons
+                $('.suggestion-btn').prop('disabled', true).addClass('opacity-50 cursor-not-allowed');
+                this.scrollToBottom();
+            }
+
+            hideTypingIndicator() {
+                $('#typingIndicator').addClass('hidden');
+                // Enable lại tất cả suggestion buttons
+                $('.suggestion-btn').prop('disabled', false).removeClass('opacity-50 cursor-not-allowed');
+            }
+
+            simulateBotResponse(userMessage) {
+                 const urlMap = {
+                    faqs: 'https://408b-14-231-188-210.ngrok-free.app/webhook/faqs',
+                    tuVan: 'https://408b-14-231-188-210.ngrok-free.app/webhook/qs',
+                    chinhSach: 'https://408b-14-231-188-210.ngrok-free.app/webhook/policies'
+                };
+                const url = urlMap[this.activeThread];
+                fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" },
+                    body: JSON.stringify({ message: userMessage }),
+                })
+                .then(async response => {
+                    const contentType = response.headers.get("content-type");
+                    const raw = await response.text();
+                    this.hideTypingIndicator();
+                    if (contentType && contentType.includes("application/json")) {
+                        const data = JSON.parse(raw);
+                        const answer = data[0]?.response || data[0]?.text || data[0]?.data?.answer || this.getText('noResponse');
+                        const suggestions = data[0]?.data?.suggestions || [];
+                        this.addBotMessage({ text: this.escapeHtml(answer), suggestions: suggestions });
+                    } else {
+                        this.addBotMessage(this.getText('invalidResponse'));
+                    }
+                    $('#messageInput').prop('disabled', false);
+                    $('#sendButton').prop('disabled', false);
+                    $('#messageInput').focus();
+                })
+                .catch(error => {
+                    this.hideTypingIndicator();
+                    this.addBotMessage(this.getText('error'));
+                    $('#messageInput').prop('disabled', false);
+                    $('#sendButton').prop('disabled', false);
+                    $('#messageInput').focus();
+                });
+            }
+
+            scrollToBottom() {
+                const container = $('#chatContainer')[0];
+                if (container) {
+                    container.scrollTop = container.scrollHeight;
+                }
+            }
+
+            getCurrentTime() {
+                const now = new Date();
+                const time = now.toLocaleTimeString('vi-VN', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                const date = now.toLocaleDateString('vi-VN', {
+                    day: '2-digit',
+                    month: '2-digit', 
+                    year: 'numeric'
+                });
+                return `${time} ${date}`;
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize chat widget when document is ready
+        $(document).ready(function() {
+            window.chatWidget = new ChatWidget();
+        });
+
+        function copyMessage(messageId) {
+            const messageElement = document.getElementById(messageId);
+            if (messageElement) {
+                // Lấy text thuần túy, bỏ HTML tags
+                const textToCopy = messageElement.innerText || messageElement.textContent;
+                
+                // Copy vào clipboard
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        showCopyNotification();
+                    }).catch(err => {
+                        // Fallback method
+                        fallbackCopy(textToCopy);
+                    });
+                } else {
+                    // Fallback method cho browsers cũ
+                    fallbackCopy(textToCopy);
+                }
+            }
+        }
+
+        // function showCopyNotification() {
+        //     // Tạo thông báo tạm thời
+        //     const notification = $(`
+        //         <div class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-[9999999] animate-pulse">
+        //             <i class="fas fa-check mr-2"></i>Đã copy!
+        //         </div>
+        //     `);
+            
+        //     $('body').append(notification);
+            
+        //     // Xóa thông báo sau 2 giây
+        //     setTimeout(() => {
+        //         notification.fadeOut(300, function() {
+        //             $(this).remove();
+        //         });
+        //     }, 2000);
+        // }
+    </script>
+</body>
+</html>

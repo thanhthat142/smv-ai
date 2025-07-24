@@ -139,11 +139,19 @@ class FrontendController extends Controller
         return view('frontend.register_package'); 
     }
 
-    public function chatbot()
+    public function chatbot_ai_faqs()
     {
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
         }
-        return view('frontend.chatbot');
+        return view('frontend.chatbot_ai_faqs');
+    }
+
+    public function chatbot_ai_policies()
+    {
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        }
+        return view('frontend.chatbot_ai_policies');
     }
 }
