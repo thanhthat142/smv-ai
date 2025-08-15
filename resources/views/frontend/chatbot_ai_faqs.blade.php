@@ -732,7 +732,11 @@
 
                 fetch(url, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" },
+                    headers: { 
+                        "Content-Type": "application/json", 
+                        "ngrok-skip-browser-warning": "true",
+                        "Authorization": "Y6g#uL2@pZ9&xR1!"
+                    },
                     body: JSON.stringify(payload),
                 })
                 .then(async response => {
